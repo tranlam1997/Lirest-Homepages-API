@@ -14,5 +14,11 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "incremental": true,
+        "baseUrl": "./",
+        "paths": {
+            "*": [
+                "./node_modules/*"
+            ]
+        },
     },
 }

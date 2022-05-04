@@ -1,4 +1,10 @@
 node_modules
+
 dist
+
 tsconfig.tsbuildinfo
+
 .eslintcache
+
+# ignore all logs
+*.log

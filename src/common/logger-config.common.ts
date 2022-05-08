@@ -3,12 +3,22 @@ import winston from 'winston';
 
 const { combine, timestamp, printf, json, prettyPrint, colorize } = winston.format;
 const formatInfo = printf(
-  ({ level, message, timestamp }: { level: string; message: string; timestamp: string }) => {
-    return `level: ${level}, timestamp: ${timestamp}, message: ${message}`;
+  ({
+    level,
+    message,
+    timestamp,
+    serviceName,
+  }: {
+    level: string;
+    message: string;
+    timestamp: string;
+    serviceName: string;
+  }) => {
+    return `[${serviceName}] level: ${level}, message: ${message}, timestamp: ${timestamp}.`;
   },
 );
-export const baseLoggerConfig = {
-  format: combine(timestamp(), formatInfo, json()),
+const baseLoggerConfig = {
+  format: combine(timestamp(), formatInfo, colorize({ all: true })),
   transports: [
     new winston.transports.Console({
       level: 'debug',
@@ -20,7 +30,11 @@ export const baseLoggerConfig = {
   exitOnError: false,
 } as winston.LoggerOptions;
 
-export const expressLoggerConfig = {
+export const logger = (serviceName: string) => {
+  return winston.createLogger(baseLoggerConfig).child({ serviceName });
+};
+
+export const expressLogger = expressWinston.logger({
   transports: [new winston.transports.Console()],
   format: winston.format.combine(json(), prettyPrint(), colorize({ all: true })),
-} as expressWinston.LoggerOptions;
+} as expressWinston.LoggerOptions);

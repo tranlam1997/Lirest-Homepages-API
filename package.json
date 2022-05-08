@@ -1,9 +1,13 @@
 {
   "name": "lirest_be",
   "version": "1.0.0",
-  "description": "",
+  "description": "Book Libary REST API",
   "private": true,
   "main": "src/main.ts",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",

@@ -7,6 +7,7 @@ import debug from 'debug';
 import { CommonRoutesConfig } from './common/routes-config.common';
 import { UserRoutes } from './routes/users.routes';
 import { connectToDbWithRetry } from './common/database-config.common';
+import { UserRepository } from './modules/users/users.repository';
 
 (async () => {
   await connectToDbWithRetry();
@@ -30,5 +31,14 @@ import { connectToDbWithRetry } from './common/database-config.common';
       debugLog(`Routes configured for ${route.getName()}`);
     });
     logger('Main').info(`Service running at http://localhost:${port}`);
+    UserRepository.createUser({
+      firstname: 'string',
+      lastname: 'string',
+      dateOfBirth: new Date(),
+      phone: 'string',
+      email: 'string',
+      username: 'string',
+      password: 'string',
+    });
   });
 })();

@@ -4,10 +4,10 @@ import { logger, expressLogger } from './common/logger-config.common';
 import 'reflect-metadata';
 import cors from 'cors';
 import debug from 'debug';
-import { CommonRoutesConfig } from './common/routes-config.common';
-import { UserRoutes } from './routes/users.routes';
 import { connectToDbWithRetry } from './common/database-config.common';
-import { UserRepository } from './modules/users/users.repository';
+import userRoutes from './routes/users.routes';
+import { UsersController } from './modules/users/users.controller';
+import { BooksController } from './modules/books/books.controller';
 
 (async () => {
   await connectToDbWithRetry();
@@ -16,29 +16,13 @@ import { UserRepository } from './modules/users/users.repository';
   app.use(cors());
   app.use(expressLogger);
 
-  const routes: Array<CommonRoutesConfig> = [];
   const debugLog: debug.IDebugger = debug('app');
   const port = config.get('service.port');
 
-  routes.push(new UserRoutes(app));
-
-  app.get('/', (req: express.Request, res: express.Response) => {
-    return res.status(200).send('Ping!');
-  });
+  app.post('/users', UsersController.createUser);
+  app.post('/books', BooksController.createBook);
 
   app.listen(port, () => {
-    routes.forEach((route: CommonRoutesConfig) => {
-      debugLog(`Routes configured for ${route.getName()}`);
-    });
     logger('Main').info(`Service running at http://localhost:${port}`);
-    UserRepository.createUser({
-      firstname: 'string',
-      lastname: 'string',
-      dateOfBirth: new Date(),
-      phone: 'string',
-      email: 'string',
-      username: 'string',
-      password: 'string',
-    });
   });
 })();

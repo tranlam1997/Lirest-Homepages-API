@@ -23,8 +23,8 @@ async function connectToDbWithRetry(): Promise<void> {
     await dataSource.initialize();
     logger(serviceName).info('Database connected');
   } catch (error) {
-    const retryInterval = 1000;
-    logger(serviceName).info(
+    const retryInterval = 5000;
+    logger(serviceName).error(
       `Database connection fail with ${error}, retrying in ${retryInterval}ms...`,
     );
     setTimeout(connectToDbWithRetry.bind(this), retryInterval);

@@ -7,3 +7,5 @@ export interface CreateUserDto {
   username?: string;
   password?: string;
 }
+
+export type UpdateUserDto = Required<CreateUserDto>;

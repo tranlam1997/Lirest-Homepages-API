@@ -1,9 +1,5 @@
-import { CreateUserDto } from './users.dto';
-import { User } from './users.entity';
+import { EntityTarget } from 'typeorm';
 import { BaseRepository } from '../../base/base.repository';
+import { User } from './users.entity';
 
-export const UserRepository = {
-  createUser: (userData: CreateUserDto) => {
-    BaseRepository.create(User, userData);
-  },
-};
+export const UserRepository = BaseRepository(User as EntityTarget<User>);

@@ -1,34 +1,33 @@
 import { dataSource } from 'src/common/database-config.common';
-import { BaseEntity, EntityTarget } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { EntityTarget, FindManyOptions, FindOneOptions } from 'typeorm';
 
-const entityManager = dataSource.manager;
-export const BaseRepository: Record<
-  string,
-  <T extends EntityTarget<any>>(a: T, ...options: any) => void
-> = {
-  create: (target, data) => {
-    const entity = entityManager.create(target, data);
-    return entityManager.save(entity);
-  },
+export function BaseRepository<T extends EntityTarget<any>>(
+  entityTarget: T,
+): { [key: string]: (...args: any) => Promise<any> } {
+  return {
+    create: (payload: any) => {
+      const entity = dataSource.manager.create(entityTarget, payload);
+      return dataSource.manager.save(entity);
+    },
 
-  find: (target, options) => {
-    return entityManager.find(target, options);
-  },
+    find: (options: FindManyOptions) => {
+      return dataSource.manager.find(entityTarget, options);
+    },
 
-  findOne: (target, options) => {
-    return entityManager.findOne(target, options);
-  },
+    findOne: (options: FindOneOptions) => {
+      return dataSource.manager.findOne(entityTarget, options);
+    },
 
-  findById: (target, id) => {
-    return entityManager.findOne(target, id);
-  },
+    findById: (id: any) => {
+      return dataSource.manager.findOne(entityTarget, id);
+    },
 
-  update: (target, conditions, update) => {
-    return entityManager.update(target, conditions, update);
-  },
+    update: (conditions: any, payload: any) => {
+      return dataSource.manager.update(entityTarget, conditions, payload);
+    },
 
-  delete: (target, id) => {
-    return entityManager.delete(target, id);
-  },
-};
+    delete: (id: any) => {
+      return dataSource.manager.delete(entityTarget, id);
+    },
+  };
+}

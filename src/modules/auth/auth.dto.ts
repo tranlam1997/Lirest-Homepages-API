@@ -1,10 +1,9 @@
 export interface CreateBookDto {
   title?: string;
   author?: string;
-  description?: string;
+  description?: Date;
   ISBN?: string;
-  price?: number;
-  quantity?: number;
+  price?: string;
 }
 
 export type UpdateBookDto = Required<CreateBookDto>;

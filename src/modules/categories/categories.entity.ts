@@ -9,32 +9,14 @@ import {
 import { Book } from '../books/books.entity';
 
 @Entity()
-export class User {
+export class Category {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 20 })
-  firstname: string;
+  name: string;
 
-  @Column({ type: 'varchar', length: 20 })
-  lastname: string;
-
-  @Column({ type: 'date', nullable: true })
-  dateOfBirth: Date;
-
-  @Column()
-  phone: string;
-
-  @Column()
-  email: string;
-
-  @Column({ type: 'varchar', length: 100 })
-  username: string;
-
-  @Column({ type: 'varchar', length: 16 })
-  password: string;
-
-  @OneToMany(() => Book, (book) => book.user)
+  @OneToMany(() => Book, (book) => book.category)
   books: Book[];
 
   @CreateDateColumn({ name: 'created_at' })

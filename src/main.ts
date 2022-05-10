@@ -5,9 +5,7 @@ import 'reflect-metadata';
 import cors from 'cors';
 import debug from 'debug';
 import { connectToDbWithRetry } from './common/database-config.common';
-import userRoutes from './routes/users.routes';
-import { UsersController } from './modules/users/users.controller';
-import { BooksController } from './modules/books/books.controller';
+import routes from './routes';
 
 (async () => {
   await connectToDbWithRetry();
@@ -19,10 +17,12 @@ import { BooksController } from './modules/books/books.controller';
   const debugLog: debug.IDebugger = debug('app');
   const port = config.get('service.port');
 
-  app.post('/users', UsersController.createUser);
-  app.post('/books', BooksController.createBook);
+  routes(app);
 
   app.listen(port, () => {
     logger('Main').info(`Service running at http://localhost:${port}`);
   });
 })();
+
+// import {userRouter} from './routes/users.routes';
+// userRouter();

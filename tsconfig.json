@@ -7,6 +7,7 @@
         "emitDecoratorMetadata": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        "strictNullChecks": true,
         "allowUnreachableCode": false,
         "target": "es2020",
         "noImplicitAny": true,

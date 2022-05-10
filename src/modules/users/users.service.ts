@@ -1,8 +1,12 @@
 import { CreateUserDto } from '../users/users.dto';
-import { UserRepository } from './users.repository';
+import { UsersRepository } from './users.repository';
 
 export const UsersService = {
   createUser: async (user: CreateUserDto) => {
-    return UserRepository.create(user);
+    return UsersRepository.create(user);
+  },
+
+  getUserByEmail: async (email: string) => {
+    return UsersRepository.findOne({ where: { email } });
   },
 };

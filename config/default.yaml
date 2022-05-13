@@ -3,11 +3,14 @@ service:
   port: 3000
 
 mysql:
-  host: ''
-  port: ''
-  username: ''
-  password: ''
-  database: ''
+  host: 'localhost'
+  port: 3306
+  username: 'root'
+  password: '123456'
+  database: 'book_library'
 
 jwt:
-  secret: ''
+  accessSecretKey: '0~N3RbbP<#cIo55'
+  accessTokenExpireIn: '1h'
+  refreshSecretKey: 'LCY{r2l10~?)/qu'
+  refreshTokenExpireIn: '4h'

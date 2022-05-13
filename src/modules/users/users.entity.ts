@@ -13,10 +13,10 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 100 })
   firstname: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 100 })
   lastname: string;
 
   @Column({ type: 'date', nullable: true })
@@ -31,7 +31,7 @@ export class User {
   @Column({ type: 'varchar', length: 100 })
   username: string;
 
-  @Column({ type: 'varchar', length: 16 })
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 
   @OneToMany(() => Book, (book) => book.user)

@@ -1,9 +1,9 @@
-import { BooksService } from './auth.service';
 import express from 'express';
+import { AuthService } from './auth.service';
 
-export const BooksController = {
-  createBook: async (req: express.Request, res: express.Response) => {
-    await BooksService.createBook(req.body);
-    res.status(201).json({ message: 'Book created successfully' });
+export const AuthController = {
+  createJWT: (req: express.Request, res: express.Response) => {
+    const data = AuthService.generateJWT(req.body);
+    return res.status(200).send(data);
   },
 };

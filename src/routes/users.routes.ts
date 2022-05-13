@@ -4,7 +4,7 @@ import { UsersController } from 'src/modules/users/users.controller';
 import { UserSchema } from 'src/modules/users/users.schema';
 
 const router = express.Router();
-export default (): any => {
+export default () => {
   router.route('/').post([validateRequestData(UserSchema)], UsersController.createUser);
   return router;
 };

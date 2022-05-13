@@ -36,5 +36,5 @@ export const logger = (serviceName: string) => {
 
 export const expressLogger = expressWinston.logger({
   transports: [new winston.transports.Console()],
-  format: winston.format.combine(json(), prettyPrint(), colorize({ all: true })),
+  format: winston.format.combine(json(), colorize({ all: true })),
 } as expressWinston.LoggerOptions);

@@ -11,6 +11,12 @@ export const UsersService = {
   },
 
   getUserByEmail: async (email: string) => {
-    return UsersRepository.findOne({ where: { email } });
+    const user = await UsersRepository.findOne({ where: { email } }).catch(() => null);
+    return user;
+  },
+
+  getUserById: async (id: string) => {
+    const user = await UsersRepository.findById(id).catch(() => null);
+    return user;
   },
 };

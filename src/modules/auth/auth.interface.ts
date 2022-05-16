@@ -1,10 +1,17 @@
-import { BaseResponse } from 'src/base/response.base';
+import { BaseRequest } from 'src/base/request.base';
 
-export type Jwt = {
+export type AccessToken = {
   refreshKey: string;
   userId: string;
+  email: string;
 };
 
-export interface VerifyAuthResponse extends BaseResponse {
-  decoded: Jwt;
+export type RefreshToken = {
+  secretCode: string;
+};
+
+export interface VerifyAuthRequest extends BaseRequest {
+  accessTokenDecoded: AccessToken;
 }
+
+export type RefreshTokenRequest = VerifyAuthRequest;

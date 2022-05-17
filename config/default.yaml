@@ -11,6 +11,6 @@ mysql:
 
 jwt:
   accessSecretKey: '0~N3RbbP<#cIo55'
-  accessTokenExpireIn: '1h'
+  accessTokenExpireIn: '1m'
   refreshSecretKey: 'LCY{r2l10~?)/qu'
   refreshTokenExpireIn: '4h'

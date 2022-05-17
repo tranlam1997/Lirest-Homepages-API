@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import { RefreshToken } from '../auth/auth.entity';
 import { Book } from '../books/books.entity';
 
 @Entity()
@@ -36,6 +39,10 @@ export class User {
 
   @OneToMany(() => Book, (book) => book.user)
   books: Book[];
+
+  @OneToOne(() => RefreshToken, (RefreshToken) => RefreshToken.user)
+  @JoinColumn()
+  refreshToken: RefreshToken;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

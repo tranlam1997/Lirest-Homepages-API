@@ -1,17 +1,10 @@
 import { BaseRequest } from 'src/base/request.base';
 
-export type AccessToken = {
-  refreshKey: string;
+export type Jwt = {
   userId: string;
   email: string;
 };
 
-export type RefreshToken = {
-  secretCode: string;
-};
-
 export interface VerifyAuthRequest extends BaseRequest {
-  accessTokenDecoded: AccessToken;
+  accessTokenDecoded: Jwt;
 }
-
-export type RefreshTokenRequest = VerifyAuthRequest;

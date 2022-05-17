@@ -8,11 +8,7 @@ export default () => {
   router
     .route('/refresh')
     .post(
-      [
-        AuthMiddleware.verifyAuth,
-        AuthMiddleware.verifyBodyRequest,
-        AuthMiddleware.verifyRefreshToken,
-      ],
+      [AuthMiddleware.verifyBodyRequest, AuthMiddleware.verifyRefreshToken],
       AuthController.refreshToken,
     );
   return router;

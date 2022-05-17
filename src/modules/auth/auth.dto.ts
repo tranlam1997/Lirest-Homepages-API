@@ -1,9 +1,8 @@
-export interface CreateBookDto {
-  title?: string;
-  author?: string;
-  description?: Date;
-  ISBN?: string;
-  price?: string;
+/* eslint-disable @typescript-eslint/no-empty-interface */
+import { BaseRequest } from 'src/base/request.base';
+
+export interface RefreshTokenRequestDto {
+  refreshToken: string;
 }
 
-export type UpdateBookDto = Required<CreateBookDto>;
+export interface LoginRequestDto extends BaseRequest {}

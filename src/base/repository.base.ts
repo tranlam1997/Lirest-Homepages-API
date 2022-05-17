@@ -10,6 +10,10 @@ export function BaseRepository<T extends EntityTarget<any>>(
       return dataSource.manager.save(entity);
     },
 
+    save(): Promise<any> {
+      return dataSource.manager.save(entityTarget);
+    },
+
     find: (options: FindManyOptions) => {
       return dataSource.manager.find(entityTarget, options);
     },

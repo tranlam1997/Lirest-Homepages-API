@@ -4,9 +4,12 @@ import { UsersService } from '../users/users.service';
 import bcrypt from 'bcrypt';
 import { RefreshTokensRepository } from './auth.repository';
 import ms from 'ms';
+import { logger } from 'src/common/logger-config.common';
+import { UsersRepository } from '../users/users.repository';
 
 export const AuthService = {
-  generateJWT(userInfo: any) {
+  name: 'AuthService',
+  async generateJWT(userInfo: any) {
     try {
       const accessSecretKey: string = config.get('jwt.accessSecretKey');
       const refreshSecretKey: string = config.get('jwt.refreshSecretKey');
@@ -18,12 +21,19 @@ export const AuthService = {
         expiresIn: config.get('jwt.accessTokenExpireIn'),
       });
       const refreshToken = jwt.sign(payload, refreshSecretKey);
-      userInfo.refreshToken = RefreshTokensRepository.create({
-        token: refreshToken,
-        expiryDate: new Date(Date.now() + ms(config.get('jwt.refreshTokenExpireIn'))),
-        user: userInfo,
-      });
-      userInfo.save();
+      if (userInfo.refreshToken?.id) {
+        await RefreshTokensRepository.update(
+          { id: userInfo.refreshToken.id },
+          { token: refreshToken },
+        );
+      } else {
+        userInfo.refreshToken = await RefreshTokensRepository.create({
+          token: refreshToken,
+          expiryDate: new Date(Date.now() + ms(config.get('jwt.refreshTokenExpireIn'))),
+          user: userInfo,
+        });
+        UsersRepository.getEntityRepository().save(userInfo);
+      }
       return { accessToken, refreshToken };
     } catch (error) {
       throw new Error(error);
@@ -52,19 +62,22 @@ export const AuthService = {
       };
     }
     const result = await bcrypt.compare(requestBody.password, userInfo.password);
+
     if (!result) {
       return {
         message: 'Invalid password',
         status: 400,
       };
     }
+
     try {
-      const jwtInfo = this.generateJWT(userInfo);
+      const jwtInfo = await this.generateJWT(userInfo);
       return {
         accessToken: jwtInfo.accessToken,
         refreshToken: jwtInfo.refreshToken,
       };
     } catch (error) {
+      logger(this.name).error('Error while generating JWT', error);
       return {
         message: 'Error',
         status: 500,

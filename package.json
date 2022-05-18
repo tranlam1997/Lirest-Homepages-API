@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "ts-node -r tsconfig-paths/register .",
-    "start:dev": "tsnd --respawn --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
+    "start:dev": "tsnd --respawn --clear --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
   "author": "FQET",
   "license": "MIT",

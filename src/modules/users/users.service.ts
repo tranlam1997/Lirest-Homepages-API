@@ -3,19 +3,21 @@ import { UsersRepository } from './users.repository';
 import bcrypt from 'bcrypt';
 
 export const UsersService = {
-  createUser: async (user: CreateUserDto) => {
+  async createUser(user: CreateUserDto) {
     const salt = Math.random();
     const hashPass = await bcrypt.hash(user.password as any, salt);
     user.password = hashPass;
     return UsersRepository.create(user);
   },
 
-  getUserByEmail: async (email: string) => {
-    const user = await UsersRepository.findOne({ where: { email } }).catch(() => null);
+  async getUserByEmail(email: string) {
+    const user = await UsersRepository.findOne({ where: { email } }, ['refreshToken']).catch(
+      () => null,
+    );
     return user;
   },
 
-  getUserById: async (id: string) => {
+  async getUserById(id: string) {
     const user = await UsersRepository.findById(id).catch(() => null);
     return user;
   },

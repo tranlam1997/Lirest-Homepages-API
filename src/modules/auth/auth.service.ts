@@ -44,13 +44,14 @@ export const AuthService = {
 
   async login(requestBody: any) {
     const userInfo = await UsersService.getUserByEmail(requestBody.email);
+
     if (!userInfo) {
       return {
         message: 'User not found',
         status: 404,
       };
     }
-    const result = bcrypt.compare(requestBody.password, userInfo.password);
+    const result = await bcrypt.compare(requestBody.password, userInfo.password);
     if (!result) {
       return {
         message: 'Invalid password',

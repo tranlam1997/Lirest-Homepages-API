@@ -9,6 +9,10 @@ import { RefreshTokensRepository } from './auth.repository';
 export const AuthMiddleware = {
   verifyAuth: async (req: VerifyAuthRequest, res: express.Response, next: express.NextFunction) => {
     const accessToken = req.headers['authorization']?.split(' ');
+    console.log(
+      '🚀 ~ file: auth.middleware.ts ~ line 15 ~ verifyAuth: ~ accessToken',
+      !accessToken,
+    );
     if (!accessToken || accessToken[0] !== 'Bearer') {
       return res.status(401).json({
         message: 'Unauthorized',

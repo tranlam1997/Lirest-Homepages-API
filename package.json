@@ -10,9 +10,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node -r tsconfig-paths/register .",
     "build": "tsc",
-    "dev": "nodemon src/main.ts"
+    "start": "ts-node -r tsconfig-paths/register .",
+    "start:dev": "tsnd --respawn --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
   "author": "FQET",
   "license": "MIT",
@@ -50,9 +50,9 @@
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.1",
-    "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.3"
   },

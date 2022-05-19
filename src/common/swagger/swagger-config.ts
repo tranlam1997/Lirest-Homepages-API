@@ -24,23 +24,26 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
     },
     servers: [
       {
-        url: `http://{hostname}:{port}/{basePath}`,
+        url: `http://localhost:3000/api/v1`,
         description: 'Lirest API Documentation',
-        variables: {
-          hostname: {
-            default: 'localhost',
-            description: 'This value is assigned by the service provider',
-          },
-          port: {
-            default: '3000',
-            description: 'This value is assigned by the service provider',
-            enum: ['3000'],
-          },
-          basePath: {
-            default: '',
-            description: 'This value is assigned by the service provider',
-          },
-        },
+      },
+    ],
+    tags: [
+      {
+        name: 'User',
+        description: 'User operations',
+      },
+      {
+        name: 'Book',
+        description: 'Book operations',
+      },
+      {
+        name: 'Auth',
+        description: 'Auth operations',
+      },
+      {
+        name: 'Category',
+        description: 'Category operations',
       },
     ],
   },

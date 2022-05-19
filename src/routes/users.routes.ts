@@ -5,7 +5,7 @@ import { UserSchema } from 'src/modules/users/users.schema';
 import { UsersMiddleware } from 'src/modules/users/users.middleware';
 
 const router = express.Router();
-export default () => {
+export default (): express.Router => {
   router
     .route('/')
     .post(

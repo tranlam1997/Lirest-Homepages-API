@@ -1,4 +1,4 @@
-import { dataSource } from 'src/common/database-config.common';
+import { dataSource } from 'src/common/database-config';
 import { EntityTarget, FindManyOptions, FindOneOptions } from 'typeorm';
 
 export function BaseRepository<T extends EntityTarget<any>>(

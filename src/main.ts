@@ -1,11 +1,13 @@
 import express from 'express';
 import config from 'config';
-import { logger, expressLogger } from './common/logger-config.common';
+import { logger, expressLogger } from './common/logger-config';
 import 'reflect-metadata';
 import cors from 'cors';
 import debug from 'debug';
-import { connectToDbWithRetry } from './common/database-config.common';
+import { connectToDbWithRetry } from './common/database-config';
 import routes from './routes';
+import swaggerUI from 'swagger-ui-express';
+import { openAPISpecification, swaggerUIOptions } from 'src/common/swagger/swagger-config';
 
 (async () => {
   await connectToDbWithRetry();
@@ -13,6 +15,7 @@ import routes from './routes';
   app.use(express.json());
   app.use(cors());
   app.use(expressLogger);
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openAPISpecification, swaggerUIOptions));
 
   const debugLog: debug.IDebugger = debug('app');
   const port = config.get('service.port');
@@ -23,6 +26,3 @@ import routes from './routes';
     logger('Main').info(`Service running at http://localhost:${port}`);
   });
 })();
-
-// import {userRouter} from './routes/users.routes';
-// userRouter();

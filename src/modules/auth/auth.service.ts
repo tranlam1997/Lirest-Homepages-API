@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 import bcrypt from 'bcrypt';
 import { RefreshTokensRepository } from './auth.repository';
 import ms from 'ms';
-import { logger } from 'src/common/logger-config.common';
+import { logger } from 'src/common/logger-config';
 import { UsersRepository } from '../users/users.repository';
 
 export const AuthService = {

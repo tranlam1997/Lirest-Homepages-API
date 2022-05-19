@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { logger } from './logger-config.common';
+import { logger } from './logger-config';
 import config from 'config';
 
 const serviceName = 'Database';

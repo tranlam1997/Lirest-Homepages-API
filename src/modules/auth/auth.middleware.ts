@@ -1,18 +1,18 @@
 import express from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import config from 'config';
-import { Jwt, VerifyAuthRequest } from './auth.interface';
-import { BaseRequest } from 'src/base/request.base';
+import { Jwt } from './auth.interface';
 import { BaseResponse } from 'src/base/response.base';
 import { RefreshTokensRepository } from './auth.repository';
+import { RefreshTokenRequestDto, VerifyAuthRequestDto } from './auth.dto';
 
 export const AuthMiddleware = {
-  verifyAuth: async (req: VerifyAuthRequest, res: express.Response, next: express.NextFunction) => {
+  verifyAuth: async (
+    req: VerifyAuthRequestDto,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
     const accessToken = req.headers['authorization']?.split(' ');
-    console.log(
-      '🚀 ~ file: auth.middleware.ts ~ line 15 ~ verifyAuth: ~ accessToken',
-      !accessToken,
-    );
     if (!accessToken || accessToken[0] !== 'Bearer') {
       return res.status(401).json({
         message: 'Unauthorized',
@@ -38,7 +38,11 @@ export const AuthMiddleware = {
     }
   },
 
-  verifyBodyRequest: async (req: BaseRequest, res: BaseResponse, next: express.NextFunction) => {
+  verifyRefreshTokenBodyRequest: async (
+    req: RefreshTokenRequestDto,
+    res: BaseResponse,
+    next: express.NextFunction,
+  ) => {
     if (req.body && req.body.refreshToken) {
       return next();
     } else {
@@ -48,7 +52,11 @@ export const AuthMiddleware = {
     }
   },
 
-  verifyRefreshToken: async (req: BaseRequest, res: BaseResponse, next: express.NextFunction) => {
+  verifyRefreshToken: async (
+    req: RefreshTokenRequestDto,
+    res: BaseResponse,
+    next: express.NextFunction,
+  ) => {
     try {
       const refreshToken = await RefreshTokensRepository.findOne({
         where: { token: req.body.refreshToken },

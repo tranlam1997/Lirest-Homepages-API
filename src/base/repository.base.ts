@@ -1,41 +1,50 @@
 import { dataSource } from 'src/common/database-config';
 import { EntityTarget, FindManyOptions, FindOneOptions } from 'typeorm';
 
-export function BaseRepository<T extends EntityTarget<any>>(
-  entityTarget: T,
-): { [key: string]: (...args: any) => any } {
+export function BaseRepository<T>(entityTarget: EntityTarget<T>) {
   return {
     create(payload: any) {
-      const entity = dataSource.manager.create(entityTarget, payload);
-      return dataSource.manager.save(entity);
+      const entity = dataSource.manager.create<T>(entityTarget, payload);
+      return dataSource.manager.save<T>(entity);
     },
 
     createQueryBuilder(alias: string) {
-      return dataSource.manager.createQueryBuilder(entityTarget, alias);
+      return dataSource.manager.createQueryBuilder<T>(entityTarget, alias);
     },
 
-    find(options: FindManyOptions, relations?: string[], skip?: number, take?: number) {
-      return dataSource.manager.find(entityTarget, { ...options, relations, skip, take });
+    find(options: any, relations?: string[], skip?: number, take?: number) {
+      return dataSource.manager.find<T>(entityTarget, {
+        ...options,
+        relations,
+        skip,
+        take,
+      } as FindManyOptions);
     },
 
-    findOne(options: FindOneOptions, relations?: string[]) {
-      return dataSource.manager.findOne(entityTarget, { ...options, relations });
+    findOne(options: any, relations?: string[]) {
+      return dataSource.manager.findOne<T>(entityTarget, {
+        ...options,
+        relations,
+      } as FindOneOptions);
     },
 
     findById(id: any, relations?: string[]) {
-      return dataSource.manager.findOne(entityTarget, { where: { id }, relations });
+      return dataSource.manager.findOne<T>(entityTarget, {
+        where: { id },
+        relations,
+      } as FindOneOptions);
     },
 
     update(conditions: any, payload: any) {
-      return dataSource.manager.update(entityTarget, conditions, payload);
+      return dataSource.manager.update<T>(entityTarget, conditions, payload);
     },
 
     delete(id: any) {
-      return dataSource.manager.delete(entityTarget, id);
+      return dataSource.manager.delete<T>(entityTarget, id);
     },
 
     getEntityRepository() {
-      return dataSource.getRepository(entityTarget);
+      return dataSource.getRepository<T>(entityTarget);
     },
   };
 }

@@ -5,6 +5,7 @@ export type Jwt = {
   email: string;
 };
 
-export interface VerifyAuthRequest extends BaseRequest {
-  accessTokenDecoded: Jwt;
+export interface LoginBodyRequest {
+  email: string;
+  password: string;
 }

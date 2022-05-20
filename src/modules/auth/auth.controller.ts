@@ -10,7 +10,11 @@ export const AuthController = {
   },
 
   async refreshToken(req: RefreshTokenRequestDto, res: BaseResponse, next: express.NextFunction) {
-    const data = AuthService.refreshToken(req.refreshToken);
-    return res.status(200).send(data);
+    try {
+      const data = AuthService.refreshToken(req.body);
+      return res.status(200).send(data);
+    } catch (error) {
+      return next(error);
+    }
   },
 };

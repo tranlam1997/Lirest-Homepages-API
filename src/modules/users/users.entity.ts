@@ -25,13 +25,13 @@ export class User {
   @Column({ type: 'date', nullable: true })
   dateOfBirth: Date;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100, unique: true })
   phone: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'varchar', length: 100, unique: true })
   username: string;
 
   @Column({ type: 'varchar', length: 100 })

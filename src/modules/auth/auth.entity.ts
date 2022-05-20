@@ -17,7 +17,7 @@ export class RefreshToken {
   token: string;
 
   @Column({ type: 'date' })
-  expiryDate: string;
+  expiryDate: Date;
 
   @OneToOne(() => User)
   user: User;

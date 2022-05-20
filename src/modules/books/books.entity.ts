@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { User } from '../users/users.entity';
@@ -27,7 +28,7 @@ export class Book {
   @Column({ type: 'varchar', unique: true })
   ISBN: string;
 
-  @Column({ type: 'float', unsigned: true })
+  @Column({ type: 'double', unsigned: true })
   price: number;
 
   @Column({ type: 'int', unsigned: true })
@@ -36,7 +37,7 @@ export class Book {
   @ManyToOne(() => Category, (category) => category.books)
   category: Category;
 
-  @OneToOne(() => User, (user) => user.books)
+  @ManyToOne(() => User, (user) => user.books)
   user: User;
 
   @CreateDateColumn({ name: 'created_at' })

@@ -1,4 +1,4 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerJSDoc, { Server, Tag } from 'swagger-jsdoc';
 import { SwaggerUiOptions } from 'swagger-ui-express';
 import fs from 'fs';
 

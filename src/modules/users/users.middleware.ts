@@ -1,9 +1,10 @@
 import express from 'express';
+import { CreateUserRequestDto } from './users.dto';
 import { UsersRepository } from './users.repository';
 
 export const UsersMiddleware = {
   checkUserExists: async (
-    req: express.Request,
+    req: CreateUserRequestDto,
     res: express.Response,
     next: express.NextFunction,
   ) => {

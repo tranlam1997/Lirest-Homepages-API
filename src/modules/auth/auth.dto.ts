@@ -4,7 +4,21 @@ import { BaseRequest } from 'src/base/request.base';
 export interface AuthRequest extends BaseRequest {}
 
 export interface RefreshTokenRequestDto extends AuthRequest {
-  refreshToken: string;
+  body: {
+    refreshToken: string;
+  };
 }
 
-export interface LoginRequestDto extends AuthRequest {}
+export interface LoginRequestDto extends AuthRequest {
+  body: {
+    email: string;
+    password: string;
+  };
+}
+
+export interface VerifyAuthRequestDto extends AuthRequest {
+  accessTokenDecoded: {
+    userId: string;
+    email: string;
+  };
+}

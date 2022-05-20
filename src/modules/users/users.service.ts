@@ -1,9 +1,9 @@
-import { CreateUserDto } from '../users/users.dto';
 import { UsersRepository } from './users.repository';
 import bcrypt from 'bcrypt';
+import { UserEntity } from './users.interface';
 
 export const UsersService = {
-  async createUser(user: CreateUserDto) {
+  async createUser(user: UserEntity) {
     const salt = Math.random();
     const hashPass = await bcrypt.hash(user.password as any, salt);
     user.password = hashPass;

@@ -96,7 +96,7 @@ export default (): express.Router => {
   router
     .route('/refresh')
     .post(
-      [AuthMiddleware.verifyBodyRequest, AuthMiddleware.verifyRefreshToken],
+      [AuthMiddleware.verifyRefreshTokenBodyRequest, AuthMiddleware.verifyRefreshToken],
       AuthController.refreshToken,
     );
 

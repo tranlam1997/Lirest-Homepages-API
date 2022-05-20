@@ -6,6 +6,8 @@ import { RefreshTokensRepository } from './auth.repository';
 import ms from 'ms';
 import { logger } from 'src/common/logger-config';
 import { UsersRepository } from '../users/users.repository';
+import { LoginBodyRequest } from './auth.interface';
+import { UserEntity } from '../users/users.interface';
 
 export const AuthService = {
   name: 'AuthService',
@@ -41,18 +43,22 @@ export const AuthService = {
   },
 
   refreshToken(tokenInfo: any) {
-    const accessSecretKey: string = config.get('jwt.accessSecretKey');
-    const accessToken = jwt.sign(
-      { userId: tokenInfo.userId, email: tokenInfo.email },
-      accessSecretKey,
-      {
-        expiresIn: config.get('jwt.accessTokenExpireIn'),
-      },
-    );
-    return { accessToken };
+    try {
+      const accessSecretKey: string = config.get('jwt.accessSecretKey');
+      const accessToken = jwt.sign(
+        { userId: tokenInfo.userId, email: tokenInfo.email },
+        accessSecretKey,
+        {
+          expiresIn: config.get('jwt.accessTokenExpireIn'),
+        },
+      );
+      return { accessToken };
+    } catch (error) {
+      throw new Error(error);
+    }
   },
 
-  async login(requestBody: any) {
+  async login(requestBody: LoginBodyRequest) {
     const userInfo = await UsersService.getUserByEmail(requestBody.email);
 
     if (!userInfo) {

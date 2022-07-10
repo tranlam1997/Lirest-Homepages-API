@@ -14,7 +14,7 @@
     "start": "ts-node -r tsconfig-paths/register .",
     "start:dev": "tsnd --respawn --clear --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
-  "author": "FQET",
+  "author": "Tran Lam",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -22,6 +22,7 @@
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "express": "^4.17.3",
+    "express-basic-auth": "^1.2.1",
     "express-validator": "^6.14.0",
     "express-winston": "^4.2.0",
     "joi": "^17.6.0",

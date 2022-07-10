@@ -9,7 +9,7 @@
         "esModuleInterop": true,
         "strictNullChecks": true,
         "allowUnreachableCode": false,
-        "target": "es2020",
+        "target": "ES2020",
         "noImplicitAny": true,
         "skipLibCheck": true,
         "sourceMap": true,
@@ -20,5 +20,5 @@
         "paths": {
             "src/*": ["src/*"],
         },
-    },
+    }
 }

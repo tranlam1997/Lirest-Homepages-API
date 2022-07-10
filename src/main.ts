@@ -8,6 +8,7 @@ import { connectToDbWithRetry } from './common/database-config';
 import routes from './routes';
 import swaggerUI from 'swagger-ui-express';
 import { openAPISpecification, swaggerUIOptions } from 'src/common/swagger/swagger-config';
+import basicAuthen from 'express-basic-auth';
 
 (async () => {
   await connectToDbWithRetry();
@@ -15,6 +16,12 @@ import { openAPISpecification, swaggerUIOptions } from 'src/common/swagger/swagg
   app.use(express.json());
   app.use(cors());
   app.use(expressLogger);
+  // app.use(['/api-docs'], basicAuthen({
+  //   challenge: true,
+  //   users: {
+  //     admin: 'abcdef',
+  //   },
+  // }));
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openAPISpecification, swaggerUIOptions));
 
   const debugLog: debug.IDebugger = debug('app');

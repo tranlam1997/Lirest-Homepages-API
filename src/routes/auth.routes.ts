@@ -63,7 +63,7 @@ export default (): express.Router => {
 
   /**
    * @swagger
-   * auth/login:
+   * /auth/login:
    *   post:
    *     tags:
    *       - Auth

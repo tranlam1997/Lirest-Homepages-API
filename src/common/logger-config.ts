@@ -1,7 +1,7 @@
 import expressWinston from 'express-winston';
 import winston from 'winston';
 
-const { combine, timestamp, printf, json, prettyPrint, colorize } = winston.format;
+const { combine, timestamp, printf, json, colorize } = winston.format;
 const formatInfo = printf(
   ({
     level,

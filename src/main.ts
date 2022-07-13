@@ -8,7 +8,9 @@ import { connectToDbWithRetry } from './common/database-config';
 import routes from './routes';
 import swaggerUI from 'swagger-ui-express';
 import { openAPISpecification, swaggerUIOptions } from 'src/common/swagger/swagger-config';
-import basicAuthen from 'express-basic-auth';
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
 
 (async () => {
   await connectToDbWithRetry();
@@ -26,10 +28,15 @@ import basicAuthen from 'express-basic-auth';
 
   const debugLog: debug.IDebugger = debug('app');
   const port = config.get('service.port');
-
+  const host = config.get('service.host');
   routes(app);
 
-  app.listen(port, () => {
-    logger('Main').info(`Service running at http://localhost:${port}`);
+  const options = {
+    key: fs.readFileSync(path.resolve(__dirname, '../certs/ssl/key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../certs/ssl/cert.pem')),
+  };
+
+  https.createServer(options, app).listen(port, () => {
+    logger('Main').info(`Service running at https://${host}:${port}`);
   });
 })();

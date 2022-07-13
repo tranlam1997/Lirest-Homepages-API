@@ -1,6 +1,7 @@
-import swaggerJSDoc, { Server, Tag } from 'swagger-jsdoc';
+import swaggerJSDoc from 'swagger-jsdoc';
 import { SwaggerUiOptions } from 'swagger-ui-express';
 import fs from 'fs';
+import config from 'config';
 
 const customCss = fs.readFileSync('./src/common/swagger/swagger-ui-custom.css', 'utf8');
 
@@ -24,7 +25,9 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
     },
     servers: [
       {
-        url: `http://localhost:3000/api/v1`,
+        url: `https://${config.get('service.host')}:${config.get('service.port')}${config.get(
+          'service.baseUrl',
+        )}`,
         description: 'Lirest API Documentation',
       },
     ],
@@ -52,7 +55,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
 
 export const swaggerUIOptions: SwaggerUiOptions = {
   explorer: true,
-  customCss: customCss,
+  customCss,
   swaggerOptions: {
     validatorUrl: null,
     syntaxHighlight: {

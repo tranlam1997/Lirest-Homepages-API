@@ -7,7 +7,7 @@ export interface CreateUserRequestDto extends UserRequest {
     firstname: string;
     lastname: string;
     dateOfBirth: Date;
-    phone: string;
+    phoneNumber: string;
     email: string;
     username: string;
     password: string;

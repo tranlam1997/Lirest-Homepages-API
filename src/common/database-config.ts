@@ -2,7 +2,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { logger } from './logger-config';
 import config from 'config';
 
-const serviceName = 'Database';
+const dbLogger = logger('Database');
 const dataSource: DataSource = new DataSource({
   type: 'mysql',
   host: config.get('mysql.host'),
@@ -18,17 +18,16 @@ const dataSource: DataSource = new DataSource({
 } as DataSourceOptions);
 
 async function connectToDbWithRetry(): Promise<void> {
-  logger(serviceName).info('Connecting to database...');
+  dbLogger.info('Connecting to database...');
   try {
     await dataSource.initialize();
-    logger(serviceName).info('Database connected');
+    dbLogger.info('Database connected');
   } catch (error) {
     const retryInterval = 5000;
-    logger(serviceName).error(
-      `Database connection fail with ${error}, retrying in ${retryInterval}ms...`,
-    );
+    dbLogger.error(`Database connection fail with ${error}, retrying in ${retryInterval}ms...`);
     setTimeout(connectToDbWithRetry.bind(this), retryInterval);
   }
+  return;
 }
 
 export { connectToDbWithRetry, dataSource };

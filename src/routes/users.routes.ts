@@ -23,7 +23,7 @@ export default (): express.Router => {
    *           type: string
    *           format: date
    *           example: 2020-01-01
-   *         phone:
+   *         phoneNumber:
    *           type: string
    *           example: 02398349845
    *         email:

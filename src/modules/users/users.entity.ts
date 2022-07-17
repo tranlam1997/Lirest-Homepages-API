@@ -26,7 +26,7 @@ export class User {
   dateOfBirth: Date;
 
   @Column({ type: 'varchar', length: 100, unique: true })
-  phone: string;
+  phoneNumber: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })
   email: string;

@@ -4,7 +4,7 @@ export interface UserEntity {
   firstname: string;
   lastname: string;
   dateOfBirth: Date;
-  phone: string;
+  phoneNumber: string;
   email: string;
   username: string;
   password: string;

@@ -7,10 +7,10 @@ import ms from 'ms';
 import { logger } from 'src/common/logger-config';
 import { UsersRepository } from '../users/users.repository';
 import { LoginBodyRequest } from './auth.interface';
-import { UserEntity } from '../users/users.interface';
+import { InternalServerException, NotFoundException } from 'src/errors/http-exceptions';
 
+const authLogger = logger('AuthService');
 export const AuthService = {
-  name: 'AuthService',
   async generateJWT(userInfo: any) {
     try {
       const accessSecretKey: string = config.get('jwt.accessSecretKey');
@@ -62,18 +62,14 @@ export const AuthService = {
     const userInfo = await UsersService.getUserByEmail(requestBody.email);
 
     if (!userInfo) {
-      return {
-        message: 'User not found',
-        status: 404,
-      };
+      authLogger.error(`User with email ${requestBody.email} not found`);
+      throw new NotFoundException('User not found');
     }
-    const result = await bcrypt.compare(requestBody.password, userInfo.password);
+    const isValidPassword = await bcrypt.compare(requestBody.password, userInfo.password);
 
-    if (!result) {
-      return {
-        message: 'Invalid password',
-        status: 400,
-      };
+    if (!isValidPassword) {
+      authLogger.error(`Invalid password for user with email ${requestBody.email}`);
+      throw new NotFoundException('Invalid password');
     }
 
     try {
@@ -83,11 +79,8 @@ export const AuthService = {
         refreshToken: jwtInfo.refreshToken,
       };
     } catch (error) {
-      logger(this.name).error('Error while generating JWT', error);
-      return {
-        message: 'Error',
-        status: 500,
-      };
+      authLogger.error('Error while generating JWT', error);
+      throw new InternalServerException('Error while generating JWT');
     }
   },
 };

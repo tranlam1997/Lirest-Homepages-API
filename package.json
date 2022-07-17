@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node -r tsconfig-paths/register .",
+    "start": "node --trace-warnings -r ts-node/register -r tsconfig-paths/register .",
     "start:dev": "tsnd --respawn --clear --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
   "author": "Tran Lam",

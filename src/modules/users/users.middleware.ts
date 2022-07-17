@@ -12,7 +12,7 @@ export const UsersMiddleware = {
       where: [
         { email: req.body.email },
         { username: req.body.username },
-        { phone: req.body.phone },
+        { phoneNumber: req.body.phoneNumber },
       ],
     });
     if (user) {

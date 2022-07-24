@@ -1,7 +1,6 @@
-import { BaseRequest } from 'src/base/request.base';
-
 export type Jwt = {
   userId: string;
+  username: string;
   email: string;
 };
 

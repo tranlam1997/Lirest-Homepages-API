@@ -1,0 +1,27 @@
+openapi: 3.0.0
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: User login to the web application
+      description: Authenticate user and return access token and fresh token
+      operationId: logIn
+      requestBody:
+        $ref: "#/components/requestBodies/LoginRequestBody"
+      responses:
+        200:
+          $ref: "#/components/responses/200LoginSuccess"
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Regenerate access token
+      description: Check if refresh token is valid and return new access token
+      operationId: refreshToken
+      requestBody:
+        $ref: "#/components/requestBodies/RefreshTokenRequestBody"
+      responses:
+        200:
+          $ref: "#/components/responses/200RefreshSuccess"

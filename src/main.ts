@@ -3,7 +3,7 @@ import config from 'config';
 import { logger, expressLogger } from './common/logger-config';
 import 'reflect-metadata';
 import cors from 'cors';
-import debug from 'debug';
+// import debug from 'debug';
 import { connectToDbWithRetry } from './common/database-config';
 import routes from './routes';
 import swaggerUI from 'swagger-ui-express';
@@ -29,7 +29,7 @@ app.use(expressLogger);
 // }));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openAPISpecification, swaggerUIOptions));
 
-const debugLog: debug.IDebugger = debug('app');
+// const debugLog: debug.IDebugger = debug('app');
 const port = config.get('service.port');
 const host = config.get('service.host');
 routes(app);

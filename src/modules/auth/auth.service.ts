@@ -7,21 +7,25 @@ import ms from 'ms';
 import { logger } from 'src/common/logger-config';
 import { UsersRepository } from '../users/users.repository';
 import { LoginBodyRequest } from './auth.interface';
-import { InternalServerException, NotFoundException } from 'src/errors/http-exceptions';
+import { User } from '../users/users.entity';
+import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
+import { NotFoundException } from 'src/errors/exceptions/not-found.exception';
 
-const authLogger = logger('AuthService');
+const authServiceLogger = logger('AuthService');
 export const AuthService = {
-  async generateJWT(userInfo: any) {
+  async generateJWT(userInfo: User) {
     try {
       const accessSecretKey: string = config.get('jwt.accessSecretKey');
       const refreshSecretKey: string = config.get('jwt.refreshSecretKey');
       const payload = {
         userId: userInfo.id,
+        username: userInfo.username,
         email: userInfo.email,
       };
       const accessToken = jwt.sign(payload, accessSecretKey, {
         expiresIn: config.get('jwt.accessTokenExpireIn'),
       });
+
       const refreshToken = jwt.sign(payload, refreshSecretKey);
       if (userInfo.refreshToken?.id) {
         await RefreshTokensRepository.update(
@@ -36,9 +40,10 @@ export const AuthService = {
         });
         UsersRepository.getEntityRepository().save(userInfo);
       }
+
       return { accessToken, refreshToken };
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException({ message: 'Internal server error', error });
     }
   },
 
@@ -54,7 +59,7 @@ export const AuthService = {
       );
       return { accessToken };
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException({ message: 'Internal server error', error });
     }
   },
 
@@ -62,25 +67,19 @@ export const AuthService = {
     const userInfo = await UsersService.getUserByEmail(requestBody.email);
 
     if (!userInfo) {
-      authLogger.error(`User with email ${requestBody.email} not found`);
+      authServiceLogger.error(`User with email ${requestBody.email} not found`);
       throw new NotFoundException('User not found');
     }
     const isValidPassword = await bcrypt.compare(requestBody.password, userInfo.password);
 
     if (!isValidPassword) {
-      authLogger.error(`Invalid password for user with email ${requestBody.email}`);
+      authServiceLogger.error(`Invalid password for user with email ${requestBody.email}`);
       throw new NotFoundException('Invalid password');
     }
-
-    try {
-      const jwtInfo = await this.generateJWT(userInfo);
-      return {
-        accessToken: jwtInfo.accessToken,
-        refreshToken: jwtInfo.refreshToken,
-      };
-    } catch (error) {
-      authLogger.error('Error while generating JWT', error);
-      throw new InternalServerException('Error while generating JWT');
-    }
+    const jwtInfo = await this.generateJWT(userInfo);
+    return {
+      accessToken: jwtInfo.accessToken,
+      refreshToken: jwtInfo.refreshToken,
+    };
   },
 };

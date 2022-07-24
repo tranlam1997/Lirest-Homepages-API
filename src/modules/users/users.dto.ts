@@ -1,6 +1,9 @@
 import { BaseRequest } from 'src/base/request.base';
+import { Jwt } from '../auth/auth.interface';
 
-export type UserRequest = BaseRequest;
+export interface UserRequest extends BaseRequest {
+  [key: string]: any;
+}
 
 export interface CreateUserRequestDto extends UserRequest {
   body: {
@@ -12,4 +15,11 @@ export interface CreateUserRequestDto extends UserRequest {
     username: string;
     password: string;
   };
+}
+
+export interface GetUserRequestDto extends UserRequest {
+  params: {
+    id: string;
+  };
+  accessTokenDecoded?: Jwt;
 }

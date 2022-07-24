@@ -1,5 +1,3 @@
-import { BaseRequest } from '../../base/request.base';
-
 export interface UserEntity {
   firstname: string;
   lastname: string;

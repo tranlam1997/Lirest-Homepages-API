@@ -1,24 +1,45 @@
 {
     "compilerOptions": {
+        // Basic Options
         "module": "commonjs",
-        "declaration": true,
-        "removeComments": true,
+        "outDir": "./dist",
+        "target": "ES2020",
+        "incremental": true,
+        // Strict Type Checks
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": false,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        // Additional Checks
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        // "noImplicitReturns": true,
+        // "noFallthroughCasesInSwitch": true,
+        // Module Resolution
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        // Source Maps
+        "sourceMap": true,
+        // Experimental Options
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        // Other Options
+        "declaration": true,
+        "removeComments": true,
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "strictNullChecks": true,
         "allowUnreachableCode": false,
-        "target": "ES2020",
-        "noImplicitAny": true,
         "skipLibCheck": true,
-        "sourceMap": true,
-        "outDir": "./dist",
         "forceConsistentCasingInFileNames": true,
-        "incremental": true,
-        "baseUrl": "./",
+        // Path Aliases
         "paths": {
-            "src/*": ["src/*"],
-        },
+            "src/*": [
+                "src/*"
+            ]
+        }
     }
 }

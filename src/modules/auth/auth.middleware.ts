@@ -1,23 +1,28 @@
-import express from 'express';
+import { NextFunction } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import config from 'config';
 import { Jwt } from './auth.interface';
 import { BaseResponse } from 'src/base/response.base';
 import { RefreshTokensRepository } from './auth.repository';
-import { RefreshTokenRequestDto, VerifyAuthRequestDto } from './auth.dto';
+import { AuthRequest, RefreshTokenRequestDto } from './auth.dto';
+import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
+import {
+  MissingAuthTokenException,
+  RefreshTokenNotFoundException,
+  RefreshTokenExpiredException,
+  InvalidRefreshTokenException,
+} from './auth.exception';
+import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
+import { logger } from 'src/common/logger-config';
+
+const authMiddleWareLogger = logger('AuthMiddleware');
 
 export const AuthMiddleware = {
-  verifyAuth: async (
-    req: VerifyAuthRequestDto,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
+  verifyAuth: (req: AuthRequest, _res: BaseResponse, next: NextFunction) => {
+    authMiddleWareLogger.info('Request data', { req });
     const accessToken = req.headers['authorization']?.split(' ');
     if (!accessToken || accessToken[0] !== 'Bearer') {
-      return res.status(401).json({
-        message: 'Unauthorized',
-        status: 401,
-      });
+      throw new UnauthorizedException('Invalid token');
     } else {
       try {
         const decoded = jwt.verify(accessToken[1], config.get('jwt.accessSecretKey')) as Jwt;
@@ -25,66 +30,50 @@ export const AuthMiddleware = {
         next();
       } catch (error) {
         if (error instanceof TokenExpiredError) {
-          return res.status(401).json({
-            message: 'Token expired',
-            status: 401,
-          });
+          throw new UnauthorizedException('Token expired');
         }
-        return res.status(401).json({
-          message: 'Unauthorized',
-          status: 401,
-        });
+        throw new InternalServerErrorException({ message: 'Internal server error', error });
       }
     }
   },
 
   verifyRefreshTokenBodyRequest: async (
     req: RefreshTokenRequestDto,
-    res: BaseResponse,
-    next: express.NextFunction,
+    _res: BaseResponse,
+    next: NextFunction,
   ) => {
     if (req.body && req.body.refreshToken) {
       return next();
     } else {
-      return res.status(400).send({
-        message: `Missing refresh token`,
-      });
+      throw new MissingAuthTokenException('Missing refresh token');
     }
   },
 
   verifyRefreshToken: async (
     req: RefreshTokenRequestDto,
-    res: BaseResponse,
-    next: express.NextFunction,
+    _res: BaseResponse,
+    next: NextFunction,
   ) => {
     try {
       const refreshToken = await RefreshTokensRepository.findOne({
         where: { token: req.body.refreshToken },
       });
       if (!refreshToken) {
-        return res.status(400).send({
-          message: `Invalid refresh token`,
-        });
+        throw new RefreshTokenNotFoundException('Not found refresh token');
       }
 
       if (Date.now() > refreshToken.expiryDate.getTime()) {
-        return res.status(400).send({
-          message: `Refresh token expired`,
-        });
+        throw new RefreshTokenExpiredException('Refresh token expired');
       }
 
       const decoded = jwt.verify(refreshToken.token, config.get('jwt.refreshSecretKey')) as Jwt;
 
       if (decoded.userId !== refreshToken.user.id) {
-        return res.status(400).send({
-          message: `Invalid refresh token`,
-        });
+        throw new InvalidRefreshTokenException('Invalid refresh token');
       }
       next();
     } catch (error) {
-      return res.status(400).send({
-        message: `Invalid refresh token`,
-      });
+      throw new InternalServerErrorException({ message: `Error verifying refresh token:`, error });
     }
   },
 };

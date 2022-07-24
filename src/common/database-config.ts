@@ -17,7 +17,7 @@ const dataSource: DataSource = new DataSource({
   subscribers: [],
 } as DataSourceOptions);
 
-async function connectToDbWithRetry(): Promise<void> {
+async function connectToDbWithRetry(this: any): Promise<void> {
   dbLogger.info('Connecting to database...');
   try {
     await dataSource.initialize();

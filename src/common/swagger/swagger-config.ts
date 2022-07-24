@@ -50,7 +50,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
       },
     ],
   },
-  apis: ['./src/routes/*.routes.ts'],
+  apis: ['./src/api-docs/**/*.yaml'],
 };
 
 export const swaggerUIOptions: SwaggerUiOptions = {

@@ -1,11 +1,14 @@
 import express from 'express';
-import { CreateUserRequestDto } from './users.dto';
+import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
+import { CreateUserRequestDto, GetUserRequestDto } from './users.dto';
+import { UserAlreadyExistsException, UserNotFoundException } from './users.exception';
 import { UsersRepository } from './users.repository';
+import { UsersService } from './users.service';
 
 export const UsersMiddleware = {
-  checkUserExists: async (
+  checkIfUserAlreadyExists: async (
     req: CreateUserRequestDto,
-    res: express.Response,
+    _res: express.Response,
     next: express.NextFunction,
   ) => {
     const user = await UsersRepository.findOne({
@@ -16,8 +19,24 @@ export const UsersMiddleware = {
       ],
     });
     if (user) {
-      return res.status(400).json({ message: 'User already exists' });
+      throw new UserAlreadyExistsException('User already exists');
     }
+    next();
+  },
+
+  checkIfUserExists: async (
+    req: GetUserRequestDto,
+    _res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    if (req.accessTokenDecoded?.userId !== req.params.id) {
+      throw new UnauthorizedException('Invalid user id');
+    }
+    const user = UsersService.getUserById(req.params.id);
+    if (!user) {
+      throw new UserNotFoundException('User not found');
+    }
+    req.data = user;
     next();
   },
 };

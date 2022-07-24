@@ -2,21 +2,9 @@ import expressWinston from 'express-winston';
 import winston from 'winston';
 
 const { combine, timestamp, printf, json, colorize } = winston.format;
-const formatInfo = printf(
-  ({
-    level,
-    message,
-    timestamp,
-    serviceName,
-  }: {
-    level: string;
-    message: string;
-    timestamp: string;
-    serviceName: string;
-  }) => {
-    return `[${serviceName}] level: ${level}, message: ${message}, timestamp: ${timestamp}.`;
-  },
-);
+const formatInfo = printf(({ level, message, timestamp, serviceName }) => {
+  return `[${serviceName}] level: ${level}, message: ${message}, timestamp: ${timestamp}.`;
+});
 const baseLoggerConfig = {
   format: combine(timestamp(), formatInfo, colorize({ all: true })),
   transports: [

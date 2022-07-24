@@ -13,11 +13,11 @@ export class RefreshToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 500 })
   token: string;
 
   @Column({ type: 'date' })
-  expiryDate: Date;
+  expiryDate!: Date;
 
   @OneToOne(() => User)
   user: User;

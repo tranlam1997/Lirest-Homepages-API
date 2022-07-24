@@ -5,12 +5,12 @@ const errorLogger = (err: any, req: Request, res: Response, next: NextFunction) 
   next(err);
 };
 
-const errorResponder = (err: any, req: Request, res: Response, next: NextFunction) => {
+const errorResponder = (err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.header('Content-Type', 'application/json');
-  res.status(err.statusCode).send({ message: err.message });
+  res.status(err.response.statusCode).send(err.response);
 };
 
-const invalidPathHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+const invalidPathHandler = (_err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.redirect('/error');
 };
 

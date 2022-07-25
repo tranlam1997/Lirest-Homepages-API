@@ -4,11 +4,11 @@ service:
   baseUrl: /api/v1
 
 mysql:
-  host: 'localhost'
+  host: 'us-cdbr-east-06.cleardb.net'
   port: 3306
-  username: 'root'
-  password: '123456'
-  database: 'book_library'
+  username: 'baf66a2e313b0f'
+  password: 'd509c258'
+  database: 'heroku_01d837d663096e3'
 
 jwt:
   accessSecretKey: '0~N3RbbP<#cIo55'

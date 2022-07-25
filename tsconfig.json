@@ -6,14 +6,14 @@
         "target": "ES2020",
         "incremental": true,
         // Strict Type Checks
-        "strict": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "strictBindCallApply": true,
-        "strictPropertyInitialization": false,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
+        // "strict": true,
+        // "noImplicitAny": true,
+        // "strictNullChecks": true,
+        // "strictFunctionTypes": true,
+        // "strictBindCallApply": true,
+        // "strictPropertyInitialization": false,
+        // "noImplicitThis": true,
+        // "alwaysStrict": true,
         // Additional Checks
         // "noUnusedLocals": true,
         // "noUnusedParameters": true,
@@ -35,6 +35,7 @@
         "allowUnreachableCode": false,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
+        "lib": ["ESNEXT"],
         // Path Aliases
         "paths": {
             "src/*": [

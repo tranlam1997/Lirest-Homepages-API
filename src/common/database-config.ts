@@ -6,7 +6,7 @@ const dbLogger = logger('Database');
 const dataSource: DataSource = new DataSource({
   type: 'mysql',
   host: config.get('mysql.host'),
-  port: config.get('mysql.port'),
+  // port: config.get('mysql.port'),
   username: config.get('mysql.username'),
   password: config.get('mysql.password'),
   database: config.get('mysql.database'),

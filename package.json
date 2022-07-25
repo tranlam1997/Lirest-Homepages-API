@@ -5,13 +5,14 @@
   "private": true,
   "main": "src/main.ts",
   "engines": {
-    "node": ">=16",
-    "pnpm": ">=7"
+    "node": "16.x",
+    "pnpm": "7.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rimraf dist",
     "build": "tsc",
-    "start": "node --trace-warnings -r ts-node/register -r tsconfig-paths/register .",
+    "start": "ts-node -r tsconfig-paths/register .",
     "start:dev": "tsnd --respawn --clear --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
   "author": "Tran Lam",
@@ -31,9 +32,11 @@
     "mysql2": "^2.3.3",
     "openapi-types": "^11.0.1",
     "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0",
     "triple-beam": "^1.3.0",
+    "tsconfig-paths": "^3.14.1",
     "typeorm": "^0.3.6",
     "winston": "^3.7.2",
     "winston-transport": "^4.5.0"
@@ -59,7 +62,6 @@
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8",
-    "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.3"
   },
   "lint-staged": {

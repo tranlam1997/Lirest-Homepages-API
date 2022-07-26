@@ -1,0 +1,17 @@
+service:
+  host: HOST_NAME
+  port: SERVICE_PORT
+  baseUrl: SERVICE_BASE_URL
+
+mysql:
+  host: MYSQL_HOST_NAME
+  port: MYSQL_PORT
+  username: MYSQL_USERNAME
+  password: MYSQL_PASSWORD
+  database: MYSQL_DATABASE_NAME
+
+jwt:
+  accessSecretKey: JWT_ACCESS_TOKEN_SECRET_KEY
+  accessTokenExpireIn: JWT_ACCESS_TOKEN_EXPIRE_IN
+  refreshSecretKey: JWT_REFRESH_TOKEN_SECRET_KEY
+  refreshTokenExpireIn: JWT_REFRESH_TOKEN_EXPIRE_IN

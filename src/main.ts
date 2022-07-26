@@ -62,6 +62,11 @@ import {
   app.use(errorResponder);
   app.use(invalidPathHandler);
   app.listen(process.env.PORT || port, () => {
-    logger('Main').info(`Service running at http://localhost:${process.env.PORT || port}`);
+    console.log(config.get('jwt.accessSecretKey'));
+    logger('Main').info(
+      `Service running at ${process.env.HOST || config.get('service.host')}:${
+        process.env.PORT || port
+      }`,
+    );
   });
 })();

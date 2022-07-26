@@ -4,14 +4,14 @@ service:
   baseUrl: /api/v1
 
 mysql:
-  host: 'us-cdbr-east-06.cleardb.net'
-  port: 3306
-  username: 'baf66a2e313b0f'
-  password: 'd509c258'
-  database: 'heroku_01d837d663096e3'
+  host: ''
+  port: ''
+  username: ''
+  password: ''
+  database: ''
 
 jwt:
-  accessSecretKey: '0~N3RbbP<#cIo55'
-  accessTokenExpireIn: '50m'
-  refreshSecretKey: 'LCY{r2l10~?)/qu'
-  refreshTokenExpireIn: '4h'
+  accessSecretKey: ''
+  accessTokenExpireIn: ''
+  refreshSecretKey: ''
+  refreshTokenExpireIn: ''

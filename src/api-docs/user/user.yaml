@@ -1,7 +1,7 @@
 openapi: 3.0.0
 
 paths:
-  /users:
+  /api/v1/lirest/users:
     post:
       tags:
         - User
@@ -12,7 +12,7 @@ paths:
       responses:
         201:
           $ref: "#/components/responses/201CreateUserSuccess"
-  /users/{id}:
+  /api/v1/lirest/users/{id}:
     get:
       security:
         - bearerAuth: []

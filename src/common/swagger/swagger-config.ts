@@ -25,13 +25,15 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
     },
     servers: [
       {
-        url: `https://${process.env.HOST || config.get('service.host')}:${
-          process.env.PORT || config.get('service.port')
-        }${config.get('service.baseUrl')}`,
+        url: `https://${config.get('service.host')}`,
         description: 'Lirest API Documentation',
       },
     ],
     tags: [
+      {
+        name: 'Ping',
+        description: 'Test service connection',
+      },
       {
         name: 'User',
         description: 'User operations',

@@ -58,15 +58,14 @@ import {
   const port = config.get('service.port');
 
   routes(app);
+
   app.use(errorLogger);
   app.use(errorResponder);
   app.use(invalidPathHandler);
   app.listen(process.env.PORT || port, () => {
     console.log(config.get('jwt.accessSecretKey'));
     logger('Main').info(
-      `Service running at ${process.env.HOST || config.get('service.host')}:${
-        process.env.PORT || port
-      }`,
+      `Service running at https://${config.get('service.host')}:${process.env.PORT || port}`,
     );
   });
 })();

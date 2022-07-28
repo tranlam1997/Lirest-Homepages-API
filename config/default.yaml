@@ -4,14 +4,14 @@ service:
   baseUrl: /api/v1/lirest
 
 mysql:
-  host: ''
-  port: ''
-  username: ''
-  password: ''
-  database: ''
+  host: ""
+  port: ""
+  username: ""
+  password: ""
+  database: ""
 
 jwt:
-  accessSecretKey: ''
-  accessTokenExpireIn: ''
-  refreshSecretKey: ''
-  refreshTokenExpireIn: ''
+  accessSecretKey: ""
+  accessTokenExpireIn: ""
+  refreshSecretKey: ""
+  refreshTokenExpireIn: ""

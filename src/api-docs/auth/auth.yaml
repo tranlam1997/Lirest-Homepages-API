@@ -1,27 +1,68 @@
 openapi: 3.0.0
 
 paths:
+# Login
   /api/v1/lirest/auth/login:
     post:
       tags:
         - Auth
-      summary: User login to the web application
       description: Authenticate user and return access token and fresh token
       operationId: logIn
+      summary: User login to the web application
       requestBody:
         $ref: "#/components/requestBodies/LoginRequestBody"
       responses:
         200:
           $ref: "#/components/responses/200LoginSuccess"
+        400:
+          $ref: "#/components/responses/GeneralBadRequestResponse"
+        401:
+          $ref: "#/components/responses/GeneralUnauthorizedResponse"
+        403:
+          $ref: "#/components/responses/GeneralForbiddenResponse"
+        404:
+          $ref: "#/components/responses/GeneralNotFoundResponse"
+        500:
+          $ref: "#/components/responses/GeneralInternalServerErrorResponse"
+        501:
+          $ref: "#/components/responses/GeneralNotImplementedResponse"
+        502:
+          $ref: "#/components/responses/GeneralBadGatewayResponse"
+        503:
+          $ref: "#/components/responses/GeneralServiceUnavailableResponse"
+        504:
+          $ref: "#/components/responses/GeneralGatewayTimeoutResponse"
+
+# Refresh token
   /api/v1/lirest/auth/refresh-token:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - Auth
-      summary: Regenerate access token
       description: Check if refresh token is valid and return new access token
       operationId: refreshToken
+      summary: Regenerate access token
       requestBody:
         $ref: "#/components/requestBodies/RefreshTokenRequestBody"
       responses:
         200:
           $ref: "#/components/responses/200RefreshSuccess"
+        400:
+          $ref: "#/components/responses/GeneralBadRequestResponse"
+        401:
+          $ref: "#/components/responses/GeneralUnauthorizedResponse"
+        403:
+          $ref: "#/components/responses/GeneralForbiddenResponse"
+        404:
+          $ref: "#/components/responses/GeneralNotFoundResponse"
+        500:
+          $ref: "#/components/responses/GeneralInternalServerErrorResponse"
+        501:
+          $ref: "#/components/responses/GeneralNotImplementedResponse"
+        502:
+          $ref: "#/components/responses/GeneralBadGatewayResponse"
+        503:
+          $ref: "#/components/responses/GeneralServiceUnavailableResponse"
+        504:
+          $ref: "#/components/responses/GeneralGatewayTimeoutResponse"

@@ -1,17 +1,39 @@
 openapi: 3.0.0
 
 paths:
+# Create new user
   /api/v1/lirest/users:
     post:
       tags:
         - User
       description: Create new user if not exists
+      operationId: createUser
       summary: Create new user
       requestBody:
         $ref: "#/components/requestBodies/CreateUserRequestBody"
       responses:
         201:
           $ref: "#/components/responses/201CreateUserSuccess"
+        400:
+          $ref: "#/components/responses/GeneralBadRequestResponse"
+        401:
+          $ref: "#/components/responses/GeneralUnauthorizedResponse"
+        403:
+          $ref: "#/components/responses/GeneralForbiddenResponse"
+        404:
+          $ref: "#/components/responses/GeneralNotFoundResponse"
+        500:
+          $ref: "#/components/responses/GeneralInternalServerErrorResponse"
+        501:
+          $ref: "#/components/responses/GeneralNotImplementedResponse"
+        502:
+          $ref: "#/components/responses/GeneralBadGatewayResponse"
+        503:
+          $ref: "#/components/responses/GeneralServiceUnavailableResponse"
+        504:
+          $ref: "#/components/responses/GeneralGatewayTimeoutResponse"
+
+# Get user by id
   /api/v1/lirest/users/{id}:
     get:
       security:
@@ -19,6 +41,7 @@ paths:
       tags:
         - User
       description: Get user by id
+      operationId: getUserById
       summary: Get user by id
       parameters:
         - in: path
@@ -30,3 +53,21 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200GetUserSuccess"
+        400:
+          $ref: "#/components/responses/GeneralBadRequestResponse"
+        401:
+          $ref: "#/components/responses/GeneralUnauthorizedResponse"
+        403:
+          $ref: "#/components/responses/GeneralForbiddenResponse"
+        404:
+          $ref: "#/components/responses/GeneralNotFoundResponse"
+        500:
+          $ref: "#/components/responses/GeneralInternalServerErrorResponse"
+        501:
+          $ref: "#/components/responses/GeneralNotImplementedResponse"
+        502:
+          $ref: "#/components/responses/GeneralBadGatewayResponse"
+        503:
+          $ref: "#/components/responses/GeneralServiceUnavailableResponse"
+        504:
+          $ref: "#/components/responses/GeneralGatewayTimeoutResponse"

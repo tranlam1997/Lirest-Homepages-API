@@ -15,3 +15,11 @@ jwt:
   accessTokenExpireIn: ""
   refreshSecretKey: ""
   refreshTokenExpireIn: ""
+
+cors:
+  allowedOrigins: ""
+  allowedMethods: ""
+
+api-docs:
+  username: ""
+  password: ""

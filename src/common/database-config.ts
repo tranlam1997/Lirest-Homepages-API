@@ -17,7 +17,7 @@ const dataSource: DataSource = new DataSource({
   subscribers: [],
 } as DataSourceOptions);
 
-async function connectToDbWithRetry(this: any): Promise<void> {
+async function connectToDb(this: any): Promise<void> {
   dbLogger.info('Connecting to database...');
   try {
     await dataSource.initialize();
@@ -25,9 +25,9 @@ async function connectToDbWithRetry(this: any): Promise<void> {
   } catch (error) {
     const retryInterval = 5000;
     dbLogger.error(`Database connection fail with ${error}, retrying in ${retryInterval}ms...`);
-    setTimeout(connectToDbWithRetry.bind(this), retryInterval);
+    setTimeout(connectToDb.bind(this), retryInterval);
   }
   return;
 }
 
-export { connectToDbWithRetry, dataSource };
+export { connectToDb, dataSource };

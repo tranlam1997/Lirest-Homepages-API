@@ -15,7 +15,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
       termsOfService: 'http://example.com/terms/',
       contact: {
         name: 'Support Team',
-        url: 'http://www.exmaple.com/support',
+        url: 'https://www.facebook.com/profile.php?id=100062704105227',
         email: 'foet1997@gmail.com',
       },
       license: {

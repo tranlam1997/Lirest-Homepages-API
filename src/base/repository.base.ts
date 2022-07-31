@@ -39,7 +39,11 @@ export function BaseRepository<T>(entityTarget: EntityTarget<T>) {
       return dataSource.manager.update<T>(entityTarget, conditions, payload);
     },
 
-    delete(id: any) {
+    delete(conditions: any) {
+      return dataSource.manager.delete<T>(entityTarget, conditions);
+    },
+
+    deleteById(id: any) {
       return dataSource.manager.delete<T>(entityTarget, id);
     },
 

@@ -36,8 +36,6 @@ paths:
 # Refresh token
   /api/v1/lirest/auth/refresh-token:
     post:
-      security:
-        - bearerAuth: []
       tags:
         - Auth
       description: Check if refresh token is valid and return new access token

@@ -1,3 +1,5 @@
-import express from 'express';
+import { Request } from 'express';
 
-export type BaseRequest = express.Request;
+export interface BaseRequest extends Request {
+  [key: string]: any;
+}

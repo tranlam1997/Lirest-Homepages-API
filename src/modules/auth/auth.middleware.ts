@@ -1,10 +1,8 @@
 import { NextFunction } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import config from 'config';
-import { Jwt } from './auth.interface';
 import { BaseResponse } from 'src/base/response.base';
-import { RefreshTokensRepository } from './auth.repository';
-import { AuthRequest, RefreshTokenRequestDto } from './auth.dto';
+import { InvalidRefreshTokensRepository, RefreshTokensRepository } from './auth.repository';
 import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
 import {
   MissingAuthTokenException,
@@ -14,18 +12,20 @@ import {
 } from './auth.exception';
 import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
 import { logger } from 'src/common/logger-config';
+import { UsersService } from '../users/users.service';
+import { BaseRequest } from 'src/base/request.base';
+import { IJwt, IRefreshTokenRequest } from './auth.interface';
 
-const authMiddleWareLogger = logger('AuthMiddleware');
+const Logger = logger('AuthMiddleware');
 
 export const AuthMiddleware = {
-  verifyAuth: (req: AuthRequest, _res: BaseResponse, next: NextFunction) => {
-    authMiddleWareLogger.info('Request data', { req });
+  verifyAuth: (req: BaseRequest, _res: BaseResponse, next: NextFunction) => {
     const accessToken = req.headers['authorization']?.split(' ');
     if (!accessToken || accessToken[0] !== 'Bearer') {
       throw new UnauthorizedException('Invalid token');
     } else {
       try {
-        const decoded = jwt.verify(accessToken[1], config.get('jwt.accessSecretKey')) as Jwt;
+        const decoded = jwt.verify(accessToken[1], config.get('jwt.accessSecretKey')) as IJwt;
         req.accessTokenDecoded = decoded;
         next();
       } catch (error) {
@@ -38,7 +38,7 @@ export const AuthMiddleware = {
   },
 
   verifyRefreshTokenBodyRequest: async (
-    req: RefreshTokenRequestDto,
+    req: IRefreshTokenRequest,
     _res: BaseResponse,
     next: NextFunction,
   ) => {
@@ -49,31 +49,61 @@ export const AuthMiddleware = {
     }
   },
 
-  verifyRefreshToken: async (
-    req: RefreshTokenRequestDto,
+  checkIfInvalidRefreshToken: async (
+    req: IRefreshTokenRequest,
     _res: BaseResponse,
     next: NextFunction,
   ) => {
-    try {
-      const refreshToken = await RefreshTokensRepository.findOne({
+    let validRefreshToken = await RefreshTokensRepository.findOne(
+      {
+        where: { token: req.body.refreshToken },
+      },
+      ['invalidTokens'],
+    );
+
+    if (!validRefreshToken) {
+      const invalidToken = await InvalidRefreshTokensRepository.findOne({
         where: { token: req.body.refreshToken },
       });
-      if (!refreshToken) {
-        throw new RefreshTokenNotFoundException('Not found refresh token');
+      if (!invalidToken) {
+        throw new RefreshTokenNotFoundException('Invalid refresh token');
       }
 
-      if (Date.now() > refreshToken.expiryDate.getTime()) {
-        throw new RefreshTokenExpiredException('Refresh token expired');
-      }
+      validRefreshToken = await RefreshTokensRepository.findOne({
+        where: { token: invalidToken.validToken },
+      });
 
-      const decoded = jwt.verify(refreshToken.token, config.get('jwt.refreshSecretKey')) as Jwt;
-
-      if (decoded.userId !== refreshToken.user.id) {
-        throw new InvalidRefreshTokenException('Invalid refresh token');
-      }
-      next();
-    } catch (error) {
-      throw new InternalServerErrorException({ message: `Error verifying refresh token:`, error });
+      await InvalidRefreshTokensRepository.delete({ validToken: validRefreshToken.id });
+      validRefreshToken.expiresIn = 0;
+      validRefreshToken.invalidTokens = [];
+      await RefreshTokensRepository.getEntityRepository().save(validRefreshToken);
+      throw new RefreshTokenExpiredException(
+        'Warning! Someone is trying access your account. For security reasons, please log in again.',
+      );
     }
+
+    req.refreshTokenInfo = validRefreshToken;
+    next();
+  },
+
+  verifyValidRefreshToken: async (
+    req: IRefreshTokenRequest,
+    _res: BaseResponse,
+    next: NextFunction,
+  ) => {
+    const validRefreshToken = req.refreshTokenInfo;
+
+    if (Date.now() > validRefreshToken.expiresIn * 1000) {
+      throw new RefreshTokenExpiredException('Refresh token expired');
+    }
+
+    const decoded = jwt.verify(validRefreshToken.token, config.get('jwt.refreshSecretKey')) as IJwt;
+    const user = await UsersService.getUserById(decoded.userId);
+
+    if (!user) {
+      throw new InvalidRefreshTokenException('Invalid refresh token');
+    }
+    req.decodedRefreshToken = decoded;
+    next();
   },
 };

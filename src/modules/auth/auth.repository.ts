@@ -1,4 +1,7 @@
 import { BaseRepository } from '../../base/repository.base';
-import { RefreshToken } from './auth.entity';
+import { InvalidRefreshTokens, RefreshToken } from './auth.entity';
 
 export const RefreshTokensRepository = BaseRepository<RefreshToken>(RefreshToken);
+
+export const InvalidRefreshTokensRepository =
+  BaseRepository<InvalidRefreshTokens>(InvalidRefreshTokens);

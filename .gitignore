@@ -12,3 +12,5 @@ tsconfig.tsbuildinfo
 .husky
 
 .vscode
+
+config.txt

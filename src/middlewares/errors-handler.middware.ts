@@ -7,16 +7,7 @@ export const errorLogger = (err: any, req: Request, res: Response, next: NextFun
 
 export const errorResponder = (err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.header('Content-Type', 'application/json');
-  res.status(err.response.statusCode).send(err.response);
+  res.status(err.response.statusCode || err.status).send(err);
 };
 
-export const invalidPathHandler = (
-  _err: any,
-  _req: Request,
-  res: Response,
-  _next: NextFunction,
-) => {
-  res.redirect('/error');
-};
-
-export const ErrorHandlerMiddlewares = [errorLogger, errorResponder, invalidPathHandler];
+export const ErrorHandlerMiddlewares = [errorLogger, errorResponder];

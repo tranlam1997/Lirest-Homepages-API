@@ -1,14 +1,15 @@
 import { UsersService } from './users.service';
 import express from 'express';
-import { CreateUserRequestDto, GetUserRequestDto } from './users.dto';
+import { ICreateUserRequest, IGetUserByIdRequest } from './users.interface';
 
 export const UsersController = {
-  createUser: async (req: CreateUserRequestDto, res: express.Response) => {
+  createUser: async (req: ICreateUserRequest, res: express.Response) => {
     await UsersService.createUser(req.body);
     return res.status(201).send({ success: true });
   },
 
-  getUser: async (req: GetUserRequestDto, res: express.Response) => {
-    return res.status(200).send(req.data);
+  getUserById: async (req: IGetUserByIdRequest, res: express.Response) => {
+    const user = await UsersService.getUserById(req.params.id);
+    return res.status(200).send(user);
   },
 };

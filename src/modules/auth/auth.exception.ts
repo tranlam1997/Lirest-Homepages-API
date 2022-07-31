@@ -1,25 +1,25 @@
 import { BadRequestException } from 'src/errors/exceptions/bad-request.exception';
-import { NotFoundException } from 'src/errors/exceptions/not-found.exception';
+import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
 
-export class MissingAuthTokenException extends BadRequestException {
+export class MissingAuthTokenException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {
     super(objectOnError);
   }
 }
 
-export class InvalidRefreshTokenException extends BadRequestException {
+export class InvalidRefreshTokenException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {
     super(objectOnError);
   }
 }
 
-export class RefreshTokenExpiredException extends BadRequestException {
+export class RefreshTokenExpiredException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {
     super(objectOnError);
   }
 }
 
-export class RefreshTokenNotFoundException extends NotFoundException {
+export class RefreshTokenNotFoundException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {
     super(objectOnError);
   }

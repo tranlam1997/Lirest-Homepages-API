@@ -10,7 +10,6 @@ import setUpRoutes from './routes';
   const port = config.get('service.port');
   await connectToDb();
   setUpRoutes(app);
-
   app.listen(process.env.PORT || port, () => {
     logger('Main').info(
       `Service running at https://${config.get('service.host')}:${process.env.PORT || port}`,

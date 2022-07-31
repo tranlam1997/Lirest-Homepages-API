@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { UserEntity } from './users.interface';
+import { IUserEntity } from './users.interface';
 
-export const UserSchema: Joi.ObjectSchema<UserEntity> = Joi.object({
+export const UserSchema: Joi.ObjectSchema<IUserEntity> = Joi.object({
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
   dateOfBirth: Joi.date().required(),

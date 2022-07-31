@@ -1,3 +1,5 @@
-import express from 'express';
+import { Response } from 'express';
 
-export type BaseResponse = express.Response;
+export interface BaseResponse extends Response {
+  [key: string]: any;
+}

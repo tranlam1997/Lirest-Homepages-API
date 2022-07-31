@@ -45,6 +45,29 @@ components:
           type: date
           description: User updated at
           example: 2022-03-01
+        refreshToken:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Refresh token id
+              example: 951a3e5e-f8e6-4026-8626-645be2661096
+            token:
+              type: string
+              description: Refresh token content
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxODQxZjg3Zi1iNDI5LTQ3OGUtYTFiNS1lNDU1OGIyMjVhN2YiLCJ1c2VybmFtZSI6ImxhbWhlaGUiLCJlbWFpbCI6ImxhbXR1YW50cmFuMTk5N0BnbWFpbC5jb20iLCJpYXQiOjE2NTkxNTI5NDZ9.KzZyAPIa2MRMHMhlJcug6S1bI78-iKZJiI9_Z-L9PZw
+            expiresIn:
+              type: number
+              description: Time refresh token expire
+              example: 1659167346
+            createdAt:
+              type: date
+              description: User created at
+              example: 2022-02-01
+            updatedAt:
+              type: date
+              description: User updated at
+              example: 2022-03-01
     UserRequestDto:
       type: object
       properties:

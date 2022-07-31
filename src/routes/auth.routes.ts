@@ -8,10 +8,14 @@ export default (): express.Router => {
   router.route('/login').post(asyncHandler(AuthController.login));
 
   router
-    .route('/refresh')
+    .route('/refresh-token')
     .post(
       asyncHandler(
-        [AuthMiddleware.verifyRefreshTokenBodyRequest, AuthMiddleware.verifyRefreshToken],
+        [
+          AuthMiddleware.verifyRefreshTokenBodyRequest,
+          AuthMiddleware.checkIfInvalidRefreshToken,
+          AuthMiddleware.verifyValidRefreshToken,
+        ],
         AuthController.refreshToken,
       ),
     );

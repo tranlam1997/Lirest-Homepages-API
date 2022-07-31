@@ -22,7 +22,7 @@ export default (): Router => {
     .get(
       asyncHandler(
         [AuthMiddleware.verifyAuth, UsersMiddleware.checkIfUserExists],
-        UsersController.getUser,
+        UsersController.getUserById,
       ),
     );
 

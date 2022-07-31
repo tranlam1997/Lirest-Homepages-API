@@ -1,15 +1,16 @@
-import express from 'express';
-import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
-import { CreateUserRequestDto, GetUserRequestDto } from './users.dto';
+import { NextFunction } from 'express';
+import { BaseResponse } from 'src/base/response.base';
+import { BadRequestException } from 'src/errors/exceptions/bad-request.exception';
 import { UserAlreadyExistsException, UserNotFoundException } from './users.exception';
+import { ICreateUserRequest, IGetUserByIdRequest } from './users.interface';
 import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
 
 export const UsersMiddleware = {
   checkIfUserAlreadyExists: async (
-    req: CreateUserRequestDto,
-    _res: express.Response,
-    next: express.NextFunction,
+    req: ICreateUserRequest,
+    _res: BaseResponse,
+    next: NextFunction,
   ) => {
     const user = await UsersRepository.findOne({
       where: [
@@ -24,13 +25,9 @@ export const UsersMiddleware = {
     next();
   },
 
-  checkIfUserExists: async (
-    req: GetUserRequestDto,
-    _res: express.Response,
-    next: express.NextFunction,
-  ) => {
+  checkIfUserExists: async (req: IGetUserByIdRequest, _res: BaseResponse, next: NextFunction) => {
     if (req.accessTokenDecoded?.userId !== req.params.id) {
-      throw new UnauthorizedException('Invalid user id');
+      throw new BadRequestException('Invalid user id');
     }
     const user = UsersService.getUserById(req.params.id);
     if (!user) {

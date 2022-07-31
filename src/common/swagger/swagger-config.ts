@@ -25,7 +25,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
     },
     servers: [
       {
-        url: `https://${config.get('service.host')}`,
+        url: `http://${config.get('service.host')}:3000`,
         description: 'Lirest API Documentation',
       },
     ],

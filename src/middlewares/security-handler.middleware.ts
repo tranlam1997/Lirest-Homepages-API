@@ -9,7 +9,7 @@ export const corsMiddleware = cors({
 
 export const rateLimitMiddleware = rateLimit({
   windowMs: 24 * 60 * 60 * 1000,
-  max: 10000000,
+  max: 1000,
   message: 'You have exceeded the requests limit!. Try again in 24 hours',
   standardHeaders: true,
   legacyHeaders: false,

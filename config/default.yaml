@@ -6,18 +6,18 @@ service:
 mysql:
   host: localhost
   port: 3306
-  username: root
-  password: '123456'
-  database: book_library
+  username: ''
+  password: ''
+  database: ''
 
 jwt:
-  accessSecretKey: 0~N3RbbP<#cIo55
-  accessTokenExpireIn: 20s
-  refreshSecretKey: LCY{r2l10~?)/qu
-  refreshTokenExpireIn: 30s
+  accessSecretKey: ''
+  accessTokenExpireIn: ''
+  refreshSecretKey: ''
+  refreshTokenExpireIn: ''
 
 cors:
-  allowedOrigins: http://localhost:3333
+  allowedOrigins: ''
 
 api-docs:
   username: ""

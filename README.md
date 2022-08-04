@@ -21,7 +21,7 @@
 <br>
 
 ## Description
-#### Lirest is web application is the place where users or customers can dive deep into humanity knownledge: read, research, discover and share all their wisdoms in every fields to each other. Besides, it will allow any vendors or merchant or anyone with valuable resources to sell, trade off or auction right in the app.
+### Lirest is web application is the place where users or customers can dive deep into humanity knownledge: read, research, discover and share all their wisdoms in every fields to each other. Besides, it will allow any vendors or merchant or anyone with valuable resources to sell, trade off or auction right in the app.
 <br>
 
 ## Features (Available in version 0.1.0)

@@ -5,18 +5,18 @@
 [![TypeOrm](https://link.storjshare.io/s/jw4pf4oahgbohvahx6p35w335foq/lirest-webapp-images/typeorm.png?wrap=0)](https://nodesource.com/products/nsolid)
 [![Typescript](https://link.storjshare.io/s/judy4ney5nwuzk6nm7xdpza4aevq/lirest-webapp-images/typescript.png?wrap=0)](https://nodesource.com/products/nsolid)
 
-![Package version](https://img.shields.io/github/package-json/v/tranlam1997/Lirest-BE)
-![Repo size](https://img.shields.io/github/repo-size/tranlam1997/Lirest-BE)
+![Package version](https://img.shields.io/github/package-json/v/tranlam1997/Lirest-Homepages-API)
+![Repo size](https://img.shields.io/github/repo-size/tranlam1997/Lirest-Homepages-API)
 ![npm](https://img.shields.io/npm/v/npm)
 ![node](https://img.shields.io/node/v/npm)
-![Downloads](https://img.shields.io/github/downloads/tranlam1997/Lirest-BE/total)
-![Contributors](https://img.shields.io/github/contributors/tranlam1997/Lirest-BE)
+![Downloads](https://img.shields.io/github/downloads/tranlam1997/Lirest-Homepages-API/total)
+![Contributors](https://img.shields.io/github/contributors/tranlam1997/Lirest-Homepages-API)
 ![Sponsors](https://img.shields.io/github/sponsors/tranlam1997)
-![License](https://img.shields.io/github/license/tranlam1997/Lirest-BE)
+![License](https://img.shields.io/github/license/tranlam1997/Lirest-Homepages-API)
 ![Followers](https://img.shields.io/github/followers/tranlam1997?style=social)
-![Forks](https://img.shields.io/github/forks/tranlam1997/Lirest-BE?style=social)
-![Stars](https://img.shields.io/github/stars/tranlam1997/Lirest-BE?style=social)
-![Watchers](https://img.shields.io/github/watchers/tranlam1997/Lirest-BE?style=social)
+![Forks](https://img.shields.io/github/forks/tranlam1997/Lirest-Homepages-API?style=social)
+![Stars](https://img.shields.io/github/stars/tranlam1997/Lirest-Homepages-API?style=social)
+![Watchers](https://img.shields.io/github/watchers/tranlam1997/Lirest-Homepages-API?style=social)
 
 <br>
 
@@ -56,8 +56,8 @@ Lirest requires [NodeJS](https://nodejs.org/) v10+ to run.
 Clone the repo to your local
 
 ```sh
-# Or git clone git@github.com:tranlam1997/Lirest-BE.git if you have SSH installed.
-git clone https://github.com/tranlam1997/Lirest-BE.git
+# Or git clone git@github.com:tranlam1997/Lirest-Homepages-API.git if you have SSH installed.
+git clone https://github.com/tranlam1997/Lirest-Homepages-API.git
 cd Lirest-BE
 ```
 Install dependencies

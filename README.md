@@ -58,7 +58,7 @@ Clone the repo to your local
 ```sh
 # Or git clone git@github.com:tranlam1997/Lirest-Homepages-API.git if you have SSH installed.
 git clone https://github.com/tranlam1997/Lirest-Homepages-API.git
-cd Lirest-BE
+cd Lirest-Homepages-API
 ```
 Install dependencies
 ```sh

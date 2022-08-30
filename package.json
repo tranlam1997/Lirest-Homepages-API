@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install && husky add .husky/pre-commit \"lint-staged\"",
     "prebuild": "rimraf dist",
     "build": "tsc",
     "start": "ts-node -r tsconfig-paths/register .",

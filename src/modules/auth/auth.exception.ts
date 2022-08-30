@@ -1,4 +1,3 @@
-import { BadRequestException } from 'src/errors/exceptions/bad-request.exception';
 import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
 
 export class MissingAuthTokenException extends UnauthorizedException {
@@ -20,6 +19,12 @@ export class RefreshTokenExpiredException extends UnauthorizedException {
 }
 
 export class RefreshTokenNotFoundException extends UnauthorizedException {
+  constructor(objectOnError: string | Record<string, any>) {
+    super(objectOnError);
+  }
+}
+
+export class ParamsNotSyncedWithAccessTokenException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {
     super(objectOnError);
   }

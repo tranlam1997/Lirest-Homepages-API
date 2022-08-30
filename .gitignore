@@ -13,4 +13,6 @@ tsconfig.tsbuildinfo
 
 .vscode
 
+certs/*
+
 config.txt

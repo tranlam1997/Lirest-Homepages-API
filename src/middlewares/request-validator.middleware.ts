@@ -6,7 +6,7 @@ export const validateRequestData = <T = any>(schema: Joi.ObjectSchema<T>) => {
   return (req: express.Request, _res: express.Response, next: express.NextFunction) => {
     const { error } = schema.validate(req.body);
     if (error) {
-      throw new BadRequestException(error.details[0].message);
+      throw new BadRequestException(error.details?.[0]?.message);
     }
     next();
   };

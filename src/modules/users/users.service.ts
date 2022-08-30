@@ -25,4 +25,8 @@ export const UsersService = {
     const user = await UsersRepository.findById(id, ['refreshToken']).catch(() => null);
     return user;
   },
+
+  async updateUser(userId: string, data: Partial<IUserEntity>) {
+    return UsersRepository.update({ id: userId }, data);
+  },
 };

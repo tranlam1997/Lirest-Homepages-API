@@ -9,6 +9,7 @@ import {
   RefreshTokenNotFoundException,
   RefreshTokenExpiredException,
   InvalidRefreshTokenException,
+  ParamsNotSyncedWithAccessTokenException,
 } from './auth.exception';
 import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
 import { logger } from 'src/common/logger-config';
@@ -35,6 +36,20 @@ export const AuthMiddleware = {
         throw new InternalServerErrorException({ message: 'Internal server error', error });
       }
     }
+  },
+
+  checkQueryParamsSyncedWithAccessToken(req: BaseRequest, _res: BaseResponse, next: NextFunction) {
+    if (!req.params.userId && !req.query.userId) {
+      next();
+    }
+    const userId = req.params.userId || req.query.userId;
+
+    if (req.accessTokenDecoded?.userId !== userId) {
+      throw new ParamsNotSyncedWithAccessTokenException(
+        'Unauthorized. User id not synced with credentials',
+      );
+    }
+    next();
   },
 
   verifyRefreshTokenBodyRequest: async (

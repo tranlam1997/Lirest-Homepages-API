@@ -26,5 +26,19 @@ export default (): Router => {
       ),
     );
 
+  router
+    .route('/')
+    .put(
+      asyncHandler(
+        [
+          AuthMiddleware.verifyAuth,
+          AuthMiddleware.checkQueryParamsSyncedWithAccessToken,
+          validateRequestData(UserSchema),
+          UsersMiddleware.checkIfUserExists,
+        ],
+        UsersController.updateUser,
+      ),
+    );
+
   return router;
 };

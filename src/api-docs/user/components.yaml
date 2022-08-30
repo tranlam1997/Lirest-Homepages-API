@@ -102,6 +102,7 @@ components:
         - email
         - username
         - password
+
   requestBodies:
     CreateUserRequestBody:
       description: Create user request body
@@ -110,6 +111,14 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UserRequestDto"
+    UpdateUserByIdRequestBody:
+      description: Update user by id request body
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserRequestDto"
+
   responses:
     201CreateUserSuccess:
       description: Create user successfully
@@ -120,10 +129,20 @@ components:
             properties:
               success:
                 type: boolean
-                example: false
+                example: true
     200GetUserSuccess:
       description: Get user successfully
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/User'     
+            $ref: '#/components/schemas/User'
+    200UpdateUserSuccess:
+      description: Update user successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true

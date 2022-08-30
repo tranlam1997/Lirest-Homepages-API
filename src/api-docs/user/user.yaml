@@ -1,8 +1,8 @@
 openapi: 3.0.0
 
 paths:
-# Create new user
   /api/v1/lirest/users:
+# Create new user
     post:
       tags:
         - User
@@ -33,8 +33,8 @@ paths:
         504:
           $ref: "#/components/responses/GeneralGatewayTimeoutResponse"
 
-# Get user by id
   /api/v1/lirest/users/{id}:
+# Get user by id
     get:
       security:
         - bearerAuth: []
@@ -53,6 +53,36 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200GetUserSuccess"
+        400:
+          $ref: "#/components/responses/GeneralBadRequestResponse"
+        401:
+          $ref: "#/components/responses/GeneralUnauthorizedResponse"
+        403:
+          $ref: "#/components/responses/GeneralForbiddenResponse"
+        404:
+          $ref: "#/components/responses/GeneralNotFoundResponse"
+        500:
+          $ref: "#/components/responses/GeneralInternalServerErrorResponse"
+        501:
+          $ref: "#/components/responses/GeneralNotImplementedResponse"
+        502:
+          $ref: "#/components/responses/GeneralBadGatewayResponse"
+        503:
+          $ref: "#/components/responses/GeneralServiceUnavailableResponse"
+        504:
+          $ref: "#/components/responses/GeneralGatewayTimeoutResponse"
+# Update user by id
+    put:
+      tags:
+        - User
+      description: Update user by id
+      operationId: updateUser
+      summary: Update user if exist
+      requestBody:
+        $ref: "#/components/requestBodies/CreateUserRequestBody"
+      responses:
+        200:
+          $ref: "#/components/responses/200UpdateUserSuccess"
         400:
           $ref: "#/components/responses/GeneralBadRequestResponse"
         401:

@@ -2,8 +2,9 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import { SwaggerUiOptions } from 'swagger-ui-express';
 import fs from 'fs';
 import config from 'config';
+import path from 'path';
 
-const customCss = fs.readFileSync('./src/common/swagger/swagger-ui-custom.css', 'utf8');
+const customCss = fs.readFileSync(path.resolve(__dirname, 'swagger-ui-custom.css'), 'utf8');
 
 const oaS3Options: swaggerJSDoc.OAS3Options = {
   definition: {

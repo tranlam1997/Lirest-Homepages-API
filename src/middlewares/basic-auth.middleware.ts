@@ -1,4 +1,5 @@
-import basicAuth from 'express-basic-auth';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const basicAuth = require('express-basic-auth');
 import config from 'config';
 
 export default basicAuth({

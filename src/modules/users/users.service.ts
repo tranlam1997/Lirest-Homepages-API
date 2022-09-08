@@ -1,5 +1,5 @@
 import { UsersRepository } from './users.repository';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { IUserEntity } from './users.interface';
 import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
 import { User } from './users.entity';

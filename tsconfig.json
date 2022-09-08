@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         // Basic Options
+        "rootDir": "./src",
         "module": "commonjs",
         "outDir": "./dist",
         "target": "ES2020",
@@ -29,8 +30,8 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         // Other Options
-        "declaration": true,
         "removeComments": true,
+        "declaration": true,
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "skipLibCheck": true,
@@ -42,5 +43,6 @@
                 "src/*"
             ]
         }
-    }
+    },
+    "exclude": ["api-docs"]
 }

@@ -1,7 +1,7 @@
 import config from 'config';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { UsersService } from '../users/users.service';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { InvalidRefreshTokensRepository, RefreshTokensRepository } from './auth.repository';
 import ms from 'ms';
 import { logger } from 'src/common/logger-config';

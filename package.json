@@ -9,11 +9,15 @@
     "pnpm": "7.x"
   },
   "scripts": {
+    "debug": "node --inspect -r ts-node/register src/main.ts",
+    "debug:prod": "node --inspect dist/main.js",
+    "debug:watch": "nodemon --exec node --inspect -r ts-node/register src/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install && husky add .husky/pre-commit \"lint-staged\"",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "start": "ts-node -r tsconfig-paths/register .",
+    "start:prod": "node dist/main.js",
     "start:dev": "tsnd --respawn --clear --transpile-only -r tsconfig-paths/register . --ignore-watch \"src/**/*.spec.ts\" node_modules"
   },
   "author": "Tran Lam",
@@ -31,6 +35,7 @@
     "jsonwebtoken": "^8.5.1",
     "ms": "^2.1.3",
     "mysql2": "^2.3.3",
+    "nodemon": "^2.0.19",
     "openapi-types": "^11.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -70,6 +75,15 @@
     "*.ts": [
       "eslint --cache --fix",
       "prettier --write"
+    ]
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/**/*.spec.ts"
     ]
   }
 }

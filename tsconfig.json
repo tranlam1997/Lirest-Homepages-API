@@ -44,5 +44,5 @@
             ]
         }
     },
-    "exclude": ["api-docs"]
+    "exclude": ["api-docs", "./dist/**/*"]
 }

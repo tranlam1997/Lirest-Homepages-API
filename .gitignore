@@ -16,3 +16,7 @@ tsconfig.tsbuildinfo
 certs/*
 
 config.txt
+
+# ignore all .env files
+.env*
+!.env.example

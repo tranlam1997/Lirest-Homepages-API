@@ -1,23 +1,27 @@
+# Service configuration
 service:
   host: 127.0.0.1
   port: 3000
   baseUrl: /api/v1/lirest
 
+# Database configuration
 mysql:
   host: localhost
   port: 3306
   username: root
-  password: '123456'
-  database: book_library
+  password: ''
+  database: ''
 
+# JWT configuration
 jwt:
-  accessSecretKey: 0~N3RbbP<#cIo55
-  accessTokenExpireIn: 10m
-  refreshSecretKey: LCY{r2l10~?)/qu
-  refreshTokenExpireIn: 1h
+  accessSecretKey: ''
+  accessTokenExpireIn: ''
+  refreshSecretKey: ''
+  refreshTokenExpireIn: ''
 
+# Security configuration
 cors:
-  allowedOrigins: http://localhost:3333
+  allowedOrigins: '*'
 
 api-docs:
   username: ""

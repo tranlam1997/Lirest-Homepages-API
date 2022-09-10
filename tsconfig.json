@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         // Basic Options
-        "rootDir": ".",
+        "rootDir": "./src",
         "outDir": "./dist",
         "module": "commonjs",
         "target": "ES2020",
@@ -50,5 +50,5 @@
         // Project References
         "composite": true,
     },
-    "exclude": ["api-docs", "./dist/**/*"]
+    "exclude": ["api-docs", "node_modules", "dist", "test"]
 }

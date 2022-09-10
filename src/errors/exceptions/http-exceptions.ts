@@ -1,4 +1,4 @@
-import { isObject, isString } from 'src/shared/helper';
+import { isObject, isString } from '@src/shared/helper';
 
 export class HttpException extends Error {
   private readonly response: string | Record<string, any>;

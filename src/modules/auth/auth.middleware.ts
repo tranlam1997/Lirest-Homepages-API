@@ -1,9 +1,9 @@
 import { NextFunction } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import config from 'config';
-import { BaseResponse } from 'src/base/response.base';
+import { BaseResponse } from '@src/base/response.base';
 import { InvalidRefreshTokensRepository, RefreshTokensRepository } from './auth.repository';
-import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
+import { UnauthorizedException } from '@src/errors/exceptions/unauthorized.exception';
 import {
   MissingAuthTokenException,
   RefreshTokenNotFoundException,
@@ -11,10 +11,10 @@ import {
   InvalidRefreshTokenException,
   ParamsNotSyncedWithAccessTokenException,
 } from './auth.exception';
-import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
-import { logger } from 'src/common/logger-config';
+import { InternalServerErrorException } from '@src/errors/exceptions/internal-server-error.exception';
+import { logger } from '@src/common/logger-config';
 import { UsersService } from '../users/users.service';
-import { BaseRequest } from 'src/base/request.base';
+import { BaseRequest } from '@src/base/request.base';
 import { IJwt, IRefreshTokenRequest } from './auth.interface';
 
 const Logger = logger('AuthMiddleware');

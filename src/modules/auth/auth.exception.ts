@@ -1,4 +1,4 @@
-import { UnauthorizedException } from 'src/errors/exceptions/unauthorized.exception';
+import { UnauthorizedException } from '@src/errors/exceptions/unauthorized.exception';
 
 export class MissingAuthTokenException extends UnauthorizedException {
   constructor(objectOnError: string | Record<string, any>) {

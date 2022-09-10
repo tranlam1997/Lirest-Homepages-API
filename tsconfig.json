@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         // Basic Options
-        "rootDir": "./src",
-        "module": "commonjs",
+        "rootDir": ".",
         "outDir": "./dist",
+        "module": "commonjs",
         "target": "ES2020",
         "incremental": true,
         // Strict Type Checks
@@ -32,6 +32,7 @@
         // Other Options
         "removeComments": true,
         "declaration": true,
+        "declarationMap": true,
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "skipLibCheck": true,
@@ -39,10 +40,15 @@
         "lib": ["ESNEXT"],
         // Path Aliases
         "paths": {
-            "src/*": [
+            "@src/*": [
                 "src/*"
+            ],
+            "@test/*": [
+                "test/*"
             ]
-        }
+        },
+        // Project References
+        "composite": true,
     },
     "exclude": ["api-docs", "./dist/**/*"]
 }

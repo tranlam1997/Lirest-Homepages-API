@@ -4,11 +4,11 @@ import { UsersService } from '../users/users.service';
 import bcrypt from 'bcryptjs';
 import { InvalidRefreshTokensRepository, RefreshTokensRepository } from './auth.repository';
 import ms from 'ms';
-import { logger } from 'src/common/logger-config';
+import { logger } from '@src/common/logger-config';
 import { UsersRepository } from '../users/users.repository';
 import { User } from '../users/users.entity';
-import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
-import { NotFoundException } from 'src/errors/exceptions/not-found.exception';
+import { InternalServerErrorException } from '@src/errors/exceptions/internal-server-error.exception';
+import { NotFoundException } from '@src/errors/exceptions/not-found.exception';
 import { ILoginBodyRequest, IRefreshTokenRequest } from './auth.interface';
 
 const {

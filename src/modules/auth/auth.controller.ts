@@ -1,4 +1,4 @@
-import { BaseResponse } from 'src/base/response.base';
+import { BaseResponse } from '@src/base/response.base';
 import { ILoginRequest, IRefreshTokenRequest } from './auth.interface';
 import { AuthService } from './auth.service';
 

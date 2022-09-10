@@ -1,4 +1,4 @@
-import { BaseRequest } from 'src/base/request.base';
+import { BaseRequest } from '@src/base/request.base';
 import { RefreshToken } from './auth.entity';
 
 export type IJwt = {

@@ -1,7 +1,7 @@
 import express from 'express';
-import { AuthController } from 'src/modules/auth/auth.controller';
-import { AuthMiddleware } from 'src/modules/auth/auth.middleware';
-import { asyncHandler } from 'src/shared/helper';
+import { AuthController } from '@src/modules/auth/auth.controller';
+import { AuthMiddleware } from '@src/modules/auth/auth.middleware';
+import { asyncHandler } from '@src/shared/helper';
 
 const router = express.Router();
 export default (): express.Router => {

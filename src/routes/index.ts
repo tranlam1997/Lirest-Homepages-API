@@ -4,7 +4,7 @@ import CategoriesRoutes from './categories.routes';
 import AuthRoutes from './auth.routes';
 import express from 'express';
 import config from 'config';
-import { openAPISpecification, swaggerUIOptions } from 'src/common/swagger/swagger-config';
+import { openAPISpecification, swaggerUIOptions } from '@src/common/swagger/swagger-config';
 import swaggerUI from 'swagger-ui-express';
 import basicAuth from '../middlewares/basic-auth.middleware';
 import { SecurityHandlerMiddleware } from '../middlewares/security-handler.middleware';

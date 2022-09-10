@@ -1,6 +1,6 @@
 import { NextFunction } from 'express';
-import { BaseResponse } from 'src/base/response.base';
-import { BadRequestException } from 'src/errors/exceptions/bad-request.exception';
+import { BaseResponse } from '@src/base/response.base';
+import { BadRequestException } from '@src/errors/exceptions/bad-request.exception';
 import { UserAlreadyExistsException, UserNotFoundException } from './users.exception';
 import { ICreateUserRequest, IGetUserByIdRequest } from './users.interface';
 import { UsersRepository } from './users.repository';

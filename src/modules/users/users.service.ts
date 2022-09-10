@@ -1,7 +1,7 @@
 import { UsersRepository } from './users.repository';
 import bcrypt from 'bcryptjs';
 import { IUserEntity } from './users.interface';
-import { InternalServerErrorException } from 'src/errors/exceptions/internal-server-error.exception';
+import { InternalServerErrorException } from '@src/errors/exceptions/internal-server-error.exception';
 import { User } from './users.entity';
 
 export const UsersService = {
@@ -15,9 +15,9 @@ export const UsersService = {
   },
 
   async getUserByEmail(email: string) {
-    const user: User | null = await UsersRepository.findOne({ where: { email } }, [
-      'refreshToken',
-    ]).catch(() => null);
+    const user = await UsersRepository.findOne({ where: { email } }, ['refreshToken']).catch(
+      () => null,
+    );
     return user;
   },
 

@@ -12,7 +12,7 @@ const dataSource: DataSource = new DataSource({
   database: config.get('mysql.database'),
   synchronize: true,
   logging: false,
-  entities: ['src/**/*.entity.ts'],
+  entities: ['@src/**/*.entity.ts'],
   migrations: [],
   subscribers: [],
 } as DataSourceOptions);

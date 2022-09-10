@@ -1,4 +1,4 @@
-import { BaseRequest } from 'src/base/request.base';
+import { BaseRequest } from '@src/base/request.base';
 import { IJwt } from '../auth/auth.interface';
 
 export interface IUserEntity {
@@ -23,17 +23,7 @@ export interface ICreateUserRequest extends BaseRequest {
   };
 }
 
-export interface IUpdateUserRequest extends BaseRequest {
-  body: Partial<{
-    firstname: string;
-    lastname: string;
-    dateOfBirth: Date;
-    phoneNumber: string;
-    email: string;
-    username: string;
-    password: string;
-  }>;
-}
+export type IUpdateUserRequest = Partial<ICreateUserRequest>;
 
 export interface IGetUserByIdRequest extends BaseRequest {
   params: {

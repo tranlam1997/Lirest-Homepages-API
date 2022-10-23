@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
         // Basic Options
-        "rootDir": "./src",
+        "rootDir": ".",
         "outDir": "./dist",
         "module": "commonjs",
         "target": "ES2020",
         "incremental": true,
+        "pretty": true,
+        "noEmitOnError": true,
         // Strict Type Checks
         // "strict": true,
         // "noImplicitAny": true,
@@ -50,5 +52,9 @@
         // Project References
         "composite": true,
     },
-    "exclude": ["api-docs", "node_modules", "dist", "test"]
+  "exclude": ["api-docs", "node_modules", "dist", "test"],
+  "include": [
+    "src/**/*.ts",
+    ".eslintrc.js",
+  ]
 }

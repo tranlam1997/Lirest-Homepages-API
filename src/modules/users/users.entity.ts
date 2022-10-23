@@ -44,6 +44,9 @@ export class User {
   @JoinColumn()
   refreshToken: RefreshToken;
 
+  @Column({ type: 'boolean', default: false })
+  emailVerified: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

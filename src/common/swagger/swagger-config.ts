@@ -26,7 +26,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
     },
     servers: [
       {
-        url: `http://${config.get('service.host')}:3000`,
+        url: `http://${config.get('service.host')}:${config.get('service.port')}`,
         description: 'Lirest API Documentation',
       },
     ],
@@ -53,7 +53,7 @@ const oaS3Options: swaggerJSDoc.OAS3Options = {
       },
     ],
   },
-  apis: ['./@src/api-docs/**/*.yaml'],
+  apis: ['./src/api-docs/**/*.yaml'],
 };
 
 export const swaggerUIOptions: SwaggerUiOptions = {
@@ -64,6 +64,7 @@ export const swaggerUIOptions: SwaggerUiOptions = {
     syntaxHighlight: {
       activate: false,
     },
+    displayOperationId: true,
   },
 };
 

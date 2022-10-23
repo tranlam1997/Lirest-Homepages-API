@@ -9,15 +9,6 @@ import { asyncHandler } from '@src/shared/helper';
 const router = Router();
 export default (): Router => {
   router
-    .route('/')
-    .post(
-      asyncHandler(
-        [validateRequestData(UserSchema), UsersMiddleware.checkIfUserAlreadyExists],
-        UsersController.createUser,
-      ),
-    );
-
-  router
     .route('/:id')
     .get(
       asyncHandler(

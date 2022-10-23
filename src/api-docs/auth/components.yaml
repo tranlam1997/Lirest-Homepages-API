@@ -17,6 +17,40 @@ components:
       properties:
         refreshToken:
           type: string
+    UserRequestDto:
+      type: object
+      properties:
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Doe
+        dateOfBirth:
+          type: string
+          format: date
+          example: 2020-01-01
+        phoneNumber:
+          type: string
+          example: 02398349845
+        email:
+          type: string
+          format: email
+          example: example @gmail.com
+        username:
+          type: string
+          example: john.doe
+        password:
+          type: string
+          example: 123456
+      required:
+        - firstname
+        - lastname
+        - dateOfBirth
+        - phoneNumber
+        - email
+        - username
+        - password
   responses:
     200LoginSuccess:
       description: Login successfully
@@ -29,6 +63,16 @@ components:
                 type: string
               refreshToken:
                 type: string
+    201CreateUserSuccess:
+      description: Create user successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
     200RefreshSuccess:
       description: Refresh token successfully
       content:
@@ -46,6 +90,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/LoginRequestDto"
+    CreateUserRequestBody:
+      description: Create user request body
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserRequestDto"
     RefreshTokenRequestBody:
       description: Refresh token request body
       required: true

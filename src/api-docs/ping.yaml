@@ -6,6 +6,7 @@ paths:
       tags:
         - Ping
       description: Test service connection.
+      operationId: Ping
       summary: Ping to service.
       responses:
         200:

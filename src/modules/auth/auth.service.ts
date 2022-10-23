@@ -10,6 +10,7 @@ import { User } from '../users/users.entity';
 import { InternalServerErrorException } from '@src/errors/exceptions/internal-server-error.exception';
 import { NotFoundException } from '@src/errors/exceptions/not-found.exception';
 import { ILoginBodyRequest, IRefreshTokenRequest } from './auth.interface';
+import { IUserEntity } from '../users/users.interface';
 
 const {
   accessSecretKey,
@@ -108,5 +109,14 @@ export const AuthService = {
       throw new NotFoundException('Invalid password');
     }
     return this.generateJWT(userInfo);
+  },
+
+  async signup(user: IUserEntity) {
+    const salt = bcrypt.genSaltSync(10);
+    const hashPass = await bcrypt.hash(user.password as any, salt).catch((err) => {
+      throw new InternalServerErrorException(err);
+    });
+    user.password = hashPass;
+    return UsersRepository.create(user);
   },
 };

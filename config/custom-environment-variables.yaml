@@ -22,3 +22,7 @@ cors:
 api-docs:
   username: API_DOCS_USERNAME
   password: API_DOCS_PASSWORD
+
+sendgrid:
+  apiKey: SENDGRID_API_KEY
+  from: SENDGRID_FROM_EMAIL

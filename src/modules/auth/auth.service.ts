@@ -11,6 +11,7 @@ import { InternalServerErrorException } from '@src/errors/exceptions/internal-se
 import { NotFoundException } from '@src/errors/exceptions/not-found.exception';
 import { ILoginBodyRequest, IRefreshTokenRequest } from './auth.interface';
 import { IUserEntity } from '../users/users.interface';
+import { sendEmail } from '@src/common/sendgrid';
 
 const {
   accessSecretKey,
@@ -117,6 +118,14 @@ export const AuthService = {
       throw new InternalServerErrorException(err);
     });
     user.password = hashPass;
-    return UsersRepository.create(user);
+    await UsersRepository.create(user);
+    await sendEmail({
+      to: user.email,
+      from: '',
+      subject: 'Welcome to the app',
+      text: 'Welcome to the app',
+      html: 'Welcome to the app',
+    });
+    return { message: 'User created successfully' };
   },
 };

@@ -28,5 +28,5 @@ api-docs:
   password: ""
 
 sendgrid:
-  apiKey: "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"
+  apiKey: ""
   from: ""

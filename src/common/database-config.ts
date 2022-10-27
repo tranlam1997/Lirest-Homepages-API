@@ -11,10 +11,9 @@ const dataSource: DataSource = new DataSource({
   password: config.get('mysql.password'),
   database: config.get('mysql.database'),
   synchronize: true,
-  logging: false,
-  entities: ['@src/**/*.entity.ts'],
-  migrations: [],
-  subscribers: [],
+  migrationsRun: true,
+  entities: ['../**/*.entity.ts'],
+  migrations: ['../migrations/*.ts'],
 } as DataSourceOptions);
 
 async function connectToDb(this: any): Promise<void> {

@@ -55,6 +55,7 @@
   "exclude": ["api-docs", "node_modules", "dist", "test"],
   "include": [
     "src/**/*.ts",
+    "migration/**/*.ts",
     ".eslintrc.js",
   ]
 }

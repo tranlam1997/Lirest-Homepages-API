@@ -1,14 +1,12 @@
 import { isObject, isString } from '@src/shared/helper';
+import { HttpStatusCode, HttpStatusCodeMessages } from '../errors.enum';
 
 export class HttpException extends Error {
   private readonly response: string | Record<string, any>;
-  private readonly status: number;
 
-  constructor(response: string | Record<string, any>, status: number) {
+  constructor(response: string | Record<string, any>) {
     super();
     this.response = response;
-    this.status = status;
-    this.initMessage();
   }
 
   initMessage(): void {
@@ -21,23 +19,12 @@ export class HttpException extends Error {
     }
   }
 
-  getResponse(): string | object {
-    return this.response;
-  }
-  getStatus(): number {
-    return this.status;
-  }
-
-  static createBody(
-    objectOrError: string | Record<string, any>,
-    description?: string,
-    statusCode?: number,
-  ) {
+  static createBody(objectOrError: string | Record<string, any>, statusCode?: HttpStatusCode) {
     if (!objectOrError) {
-      return { statusCode, message: description };
+      return { statusCode, message: HttpStatusCodeMessages.get(statusCode) };
     }
     return isObject(objectOrError) && !Array.isArray(objectOrError)
       ? objectOrError
-      : { statusCode, message: objectOrError, error: description };
+      : { statusCode, message: objectOrError, error: HttpStatusCodeMessages.get(statusCode) };
   }
 }

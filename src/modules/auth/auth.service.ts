@@ -113,19 +113,23 @@ export const AuthService = {
   },
 
   async signup(user: IUserEntity) {
-    const salt = bcrypt.genSaltSync(10);
-    const hashPass = await bcrypt.hash(user.password as any, salt).catch((err) => {
-      throw new InternalServerErrorException(err);
-    });
-    user.password = hashPass;
-    await UsersRepository.create(user);
-    await sendEmail({
-      to: user.email,
-      from: '',
-      subject: 'Welcome to the app',
-      text: 'Welcome to the app',
-      html: 'Welcome to the app',
-    });
-    return { message: 'User created successfully' };
+    try {
+      const salt = bcrypt.genSaltSync(10);
+      const hashPass = await bcrypt.hash(user.password as any, salt).catch((err) => {
+        throw new InternalServerErrorException(err);
+      });
+      user.password = hashPass;
+      await UsersRepository.create(user);
+      await sendEmail({
+        to: user.email,
+        from: config.get<string>('sendgrid.from'),
+        subject: 'Welcome to the app',
+        text: 'Welcome to the app',
+        html: 'Welcome to the app',
+      });
+      return { message: 'User created successfully' };
+    } catch (error) {
+      throw new InternalServerErrorException({ message: 'Internal server error', error });
+    }
   },
 };

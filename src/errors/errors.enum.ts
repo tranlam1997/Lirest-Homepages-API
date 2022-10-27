@@ -14,3 +14,20 @@ export enum HttpStatusCode {
   SERVICE_UNAVAILABLE = 503,
   GATEWAY_TIMEOUT = 504,
 }
+
+export const HttpStatusCodeMessages = new Map<HttpStatusCode, string>([
+  [HttpStatusCode.OK, 'OK'],
+  [HttpStatusCode.CREATED, 'Created'],
+  [HttpStatusCode.ACCEPTED, 'Accepted'],
+  [HttpStatusCode.NO_CONTENT, 'No Content'],
+  [HttpStatusCode.BAD_REQUEST, 'Bad Request'],
+  [HttpStatusCode.UNAUTHORIZED, 'Unauthorized'],
+  [HttpStatusCode.FORBIDDEN, 'Forbidden'],
+  [HttpStatusCode.NOT_FOUND, 'Not Found'],
+  [HttpStatusCode.METHOD_NOT_ALLOWED, 'Method Not Allowed'],
+  [HttpStatusCode.CONFLICT, 'Conflict'],
+  [HttpStatusCode.INTERNAL_SERVER_ERROR, 'Internal Server Error'],
+  [HttpStatusCode.BAD_GATEWAY, 'Bad Gateway'],
+  [HttpStatusCode.SERVICE_UNAVAILABLE, 'Service Unavailable'],
+  [HttpStatusCode.GATEWAY_TIMEOUT, 'Gateway Timeout'],
+]);

@@ -11,7 +11,10 @@ import { InternalServerErrorException } from '@src/errors/exceptions/internal-se
 import { NotFoundException } from '@src/errors/exceptions/not-found.exception';
 import { ILoginBodyRequest, IRefreshTokenRequest } from './auth.interface';
 import { IUserEntity } from '../users/users.interface';
-import { sendEmail } from '@src/common/sendgrid';
+import { sendMail } from '@src/common/sendgrid';
+import { IResultResponse, ResultResponse } from '@src/shared/response';
+import { HttpStatusCode } from '@src/errors/errors.enum';
+import { compileTemplate } from '@src/shared/handlebars';
 
 const {
   accessSecretKey,
@@ -57,7 +60,10 @@ export const AuthService = {
         UsersRepository.getEntityRepository().save(userInfo);
       }
 
-      return { accessToken, refreshToken };
+      return ResultResponse.send({
+        accessToken,
+        refreshToken,
+      });
     } catch (error) {
       throw new InternalServerErrorException({ message: 'Internal server error', error });
     }
@@ -90,7 +96,7 @@ export const AuthService = {
 
       RefreshTokensRepository.getEntityRepository().save(refreshTokenInfo);
 
-      return { accessToken, refreshToken: newRefreshToken };
+      return ResultResponse.send({ accessToken, refreshToken: newRefreshToken });
     } catch (error) {
       throw new InternalServerErrorException({ message: 'Internal server error', error });
     }
@@ -112,7 +118,7 @@ export const AuthService = {
     return this.generateJWT(userInfo);
   },
 
-  async signup(user: IUserEntity) {
+  async signup(user: IUserEntity): Promise<IResultResponse> {
     try {
       const salt = bcrypt.genSaltSync(10);
       const hashPass = await bcrypt.hash(user.password as any, salt).catch((err) => {
@@ -120,14 +126,17 @@ export const AuthService = {
       });
       user.password = hashPass;
       await UsersRepository.create(user);
-      await sendEmail({
+      const template = compileTemplate('emails/verify-account.hbs');
+      const html = template({ name: user.username, email: user.email });
+
+      sendMail({
         to: user.email,
         from: config.get<string>('sendgrid.from'),
-        subject: 'Welcome to the app',
-        text: 'Welcome to the app',
-        html: 'Welcome to the app',
+        subject: 'Verify your account',
+        text: 'Please verify your account',
+        html,
       });
-      return { message: 'User created successfully' };
+      return ResultResponse.send({}, 'User created successfully', HttpStatusCode.CREATED);
     } catch (error) {
       throw new InternalServerErrorException({ message: 'Internal server error', error });
     }

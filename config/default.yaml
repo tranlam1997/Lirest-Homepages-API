@@ -24,9 +24,9 @@ cors:
   allowedOrigins: '*'
 
 api-docs:
-  username: ""
-  password: ""
+  username: ''
+  password: ''
 
 sendgrid:
-  apiKey: ""
-  from: ""
+  apiKey: ''
+  from: ''

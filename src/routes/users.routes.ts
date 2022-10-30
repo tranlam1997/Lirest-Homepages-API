@@ -8,6 +8,9 @@ import { asyncHandler } from '@src/shared/helper';
 
 const router = Router();
 export default (): Router => {
+  /**
+   * @description Get user by id
+   */
   router
     .route('/:id')
     .get(
@@ -17,6 +20,9 @@ export default (): Router => {
       ),
     );
 
+  /**
+   * @description Update user
+   */
   router
     .route('/')
     .put(

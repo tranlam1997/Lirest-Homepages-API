@@ -13,7 +13,7 @@ export interface ISendgridMail {
   html: string;
 }
 
-export async function sendEmail(msg: ISendgridMail) {
+export async function sendMail(msg: ISendgridMail) {
   const { to, from, subject, text, html } = msg;
   const response = await sgMail
     .send({

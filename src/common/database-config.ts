@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { logger } from './logger-config';
 import config from 'config';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 const dbLogger = logger('Database');
 const dataSource: DataSource = new DataSource({
@@ -14,6 +15,7 @@ const dataSource: DataSource = new DataSource({
   migrationsRun: true,
   entities: ['../**/*.entity.ts'],
   migrations: ['../migrations/*.ts'],
+  namingStrategy: new SnakeNamingStrategy(),
 } as DataSourceOptions);
 
 async function connectToDb(this: any): Promise<void> {
